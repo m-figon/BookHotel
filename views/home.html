@@ -4,10 +4,11 @@
     <h1>From cozy cottages to luxury apartments</h1>
     <div class="search-bar">
       <input value="What is your destination?">
-      <input value="Check-in - Check-out">
+      <input ng-click="showCalendar()" value="Check-in - Check-out">
       <input value="2 adults - 0 children - 1 room">
       <button>Search</button>
     </div>
+    <ng-include src="'views/calendar.html'"></ng-include>
     <div class="ad">
       <div class="img1">
         <img src="https://previews.123rf.com/images/philou1000/philou10001710/philou1000171000135/88999490-view-of-the-countryside-with-fields-and-forests-in-the-land-of-baden-w%C3%BCrttemberg.jpg">

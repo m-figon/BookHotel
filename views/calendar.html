@@ -1,0 +1,32 @@
+<div class="calendar" ng-show="calendarVisible" ng-controller="calendar-controller">
+    <div class="sign-line">
+        <div class="day" ng-click="monthOperation('-')">
+            <
+        </div>
+        <h1>{{month1}} {{year1}}</h1>
+        <div class="separator">
+        </div>
+        <h1>{{month2}} {{year2}}</h1>
+        <div class="day" ng-click="monthOperation('+')">
+            >
+        </div>
+    </div>
+    <div class="calendar-line">
+        <div class="left">
+            <div class="day" ng-repeat="item in num" ng-click="chooseDay(item,1)">
+                {{item}}
+            </div>
+        </div>
+        <div class="right">
+            <div class="day" ng-repeat="item in num" ng-click="chooseDay(item,2)">
+                {{item}}
+            </div>
+        </div>
+    </div>
+    <div class="sign-line">
+        <h1>{{checkIn}}</h1>
+        <div class="separator">
+        </div>
+        <h1>{{checkOut}}</h1>
+    </div>
+</div>

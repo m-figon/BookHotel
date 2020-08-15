@@ -119,3 +119,59 @@ body{
   width:100%;
   height:100%;
 }
+.calendar{
+  margin: 1rem 0;
+  width:30rem;
+  height:20rem;
+  background-color: white;
+  border:1px solid rgb(206, 206, 206);
+  display: flex;
+  flex-direction: column;
+}
+.calendar-line{
+  width:100%;
+  height:16rem;
+  border-bottom: 1px solid rgb(206, 206, 206);
+  display: flex;
+}
+.calendar-line .left,
+.calendar-line .right{
+  width:50%;
+  height:100%;
+  display: grid;
+  grid-template-columns:  auto auto auto auto auto auto auto;
+}
+.calendar-line .day,
+.sign-line .day{
+  width:1.5rem;
+  height:1.5rem;
+  background-color: white;
+  margin: 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sign-line .day{
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+.calendar-line .day:hover,
+.sign-line .day:hover{
+  cursor: pointer;
+  background-color: rgb(240, 240, 240);
+}
+.sign-line{
+  width:100%;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sign-line h1{
+  margin:0 1rem;
+}
+.sign-line .separator{
+  width:5px;
+  height: 1px;
+  background-color: black;
+}
