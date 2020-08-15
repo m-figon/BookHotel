@@ -13,12 +13,12 @@
     </div>
     <div class="calendar-line">
         <div class="left">
-            <div class="day" ng-repeat="item in num" ng-click="chooseDay(item,1)">
+            <div class="day" ng-repeat="item in num" ng-click="chooseDay(item,1,$event)">
                 {{item}}
             </div>
         </div>
         <div class="right">
-            <div class="day" ng-repeat="item in num" ng-click="chooseDay(item,2)">
+            <div class="day" ng-repeat="item in num" ng-click="chooseDay(item,2,$event)">
                 {{item}}
             </div>
         </div>
