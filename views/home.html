@@ -3,37 +3,38 @@
     <h2>Find hotels, houses and much more to book</h2>
     <h1>From cozy cottages to luxury apartments</h1>
     <div class="search-bar">
-      <input ng-model="city" ng-change="writeFunc()" ng-focus="focusFunc($event)" ng-blur="blurFunc($event)">
+      <input ng-model="data.city" ng-change="writeFunc()" ng-focus="focusFunc($event)" ng-blur="blurFunc($event)">
       <input ng-click="showCalendar()" value="Check-in - Check-out">
-      <input value="2 adults - 0 children - 1 room">
+      <h1  ng-click="showRoomsSettings()">{{adults}} adults - {{children}} children - {{rooms}} room</h1>
       <a ng-click="searchFilter()" ng-href="#!/search/">
-      <button ng-show="city==='' || city==='What is your destination?'">Search</button>
+      <button ng-show="data.city==='' || data.city==='What is your destination?'">Search</button>
       </a>
-      <a ng-click="searchFilter()" ng-href="#!/search/{{city}}">
-        <button ng-show="city!=='' && city!=='What is your destination?'">Search</button>
+      <a ng-click="searchFilter()" ng-href="#!/search/{{data.city}}">
+        <button ng-show="data.city!=='' && data.city!=='What is your destination?'">Search</button>
       </a>
     </div>
     <ng-include src="'views/calendar.html'"></ng-include>
+    <ng-include src="'views/room-settings.html'"></ng-include>
     <div class="ad">
       <div class="img1">
         <img
-          src="https://previews.123rf.com/images/philou1000/philou10001710/philou1000171000135/88999490-view-of-the-countryside-with-fields-and-forests-in-the-land-of-baden-w%C3%BCrttemberg.jpg">
+          ng-src="{{hotels[0].img}}">
       </div>
       <div class="img2">
         <img
-          src="https://previews.123rf.com/images/philou1000/philou10001710/philou1000171000135/88999490-view-of-the-countryside-with-fields-and-forests-in-the-land-of-baden-w%C3%BCrttemberg.jpg">
+        ng-src="{{hotels[1].img}}">
       </div>
       <div class="img3">
         <img
-          src="https://previews.123rf.com/images/philou1000/philou10001710/philou1000171000135/88999490-view-of-the-countryside-with-fields-and-forests-in-the-land-of-baden-w%C3%BCrttemberg.jpg">
+        ng-src="{{hotels[2].img}}">
       </div>
       <div class="img4">
         <img
-          src="https://previews.123rf.com/images/philou1000/philou10001710/philou1000171000135/88999490-view-of-the-countryside-with-fields-and-forests-in-the-land-of-baden-w%C3%BCrttemberg.jpg">
+        ng-src="{{hotels[3].img}}">
       </div>
       <div class="img5">
         <img
-          src="https://previews.123rf.com/images/philou1000/philou10001710/philou1000171000135/88999490-view-of-the-countryside-with-fields-and-forests-in-the-land-of-baden-w%C3%BCrttemberg.jpg">
+        ng-src="{{hotels[4].img}}">
       </div>
     </div>
   </div>

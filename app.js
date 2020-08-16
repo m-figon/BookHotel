@@ -18,33 +18,62 @@ app.config(['$routeProvider', ($routeProvider) => {
 
 app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   $scope.calendarVisible = false;
+  $scope.roomSettingsVisible = false;
   $scope.hotels=[];
-  $scope.city="What is your destination?";
   $scope.found=true;
-  $scope.writeFunc = () =>{
-    console.log($scope.city);
+  $scope.data={
+    city:"What is your destination?"
+  };
+  $scope.adults=2;
+  $scope.children=0;
+  $scope.rooms=1;
+  $scope.operationFunc = (operation,type) =>{
+    if(type==='adults'){
+      if(operation==='-' && $scope.adults>0){
+        $scope.adults--;
+      }else if(operation==='+'){
+        $scope.adults++;
+      }
+    }else if(type==='children'){
+      if(operation==='-'  && $scope.children>0){
+        $scope.children--;
+      }else if(operation==='+'){
+        $scope.children++;
+      }
+    }else if(type==='rooms'){
+      if(operation==='-'  && $scope.rooms>0){
+        $scope.rooms--;
+      }else if(operation==='+'){
+        $scope.rooms++;
+      }
+    }
   }
   $scope.focusFunc = (e) =>{
-    if($scope.city==="What is your destination?"){
-      $scope.city="";
+    if($scope.data.city==="What is your destination?"){
+      $scope.data.city="";
     }
   }
   $scope.blurFunc = (e) =>{
-    if($scope.city===""){
-      $scope.city="What is your destination?";
+    if($scope.data.city===""){
+      $scope.data.city="What is your destination?";
     }
   }
   $scope.showCalendar = () => {
     $scope.calendarVisible = !$scope.calendarVisible;
+    $scope.roomSettingsVisible=false;
+  }
+  $scope.showRoomsSettings = () => {
+    $scope.roomSettingsVisible = !$scope.roomSettingsVisible;
+    $scope.calendarVisible=false;
   }
   $scope.searchFilter = () => {
     $scope.found=false;
-    console.log($scope.city);
     for(let item of $scope.hotels){
-      if(item.city===$scope.city){
+      if(item.city.toLowerCase()===$scope.data.city.toLowerCase()){
         $scope.found=true;
       }
     }
+    console.log($scope.found);
   }
   $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels').then((data) => {
     $scope.hotels = data.data;
@@ -57,7 +86,6 @@ app.controller('search-controller', ['$scope', '$http','$routeParams', ($scope, 
   if($routeParams.city){
     $scope.cityFilter=$routeParams.city;
   }
-  
 }])
 
 app.constant("moment", moment);

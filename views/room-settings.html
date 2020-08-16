@@ -1,0 +1,32 @@
+<div class="room-settings" ng-show="roomSettingsVisible">
+    <div class="room-settings-line">
+        <div class="room-settings-line-left">
+            <h1>Adults</h1>
+        </div>
+        <div class="room-settings-line-right">
+            <button ng-click="operationFunc('-','adults')">-</button>
+            <h1>{{adults}}</h1>
+            <button ng-click="operationFunc('+','adults')">+</button>
+        </div>
+    </div>
+    <div class="room-settings-line">
+        <div class="room-settings-line-left">
+            <h1>Children</h1>
+        </div>
+        <div class="room-settings-line-right">
+            <button ng-click="operationFunc('-','children')">-</button>
+            <h1>{{children}}</h1>
+            <button ng-click="operationFunc('+','children')">+</button>
+        </div>
+    </div>
+    <div class="room-settings-line">
+        <div class="room-settings-line-left">
+            <h1>Rooms</h1>
+        </div>
+        <div class="room-settings-line-right">
+            <button ng-click="operationFunc('-','rooms')">-</button>
+            <h1>{{rooms}}</h1>
+            <button ng-click="operationFunc('+','rooms')">+</button>
+        </div>
+    </div>
+</div>

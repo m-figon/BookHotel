@@ -91,12 +91,25 @@ body{
   align-items: center;
 }
 .search-bar input{
-  width:15rem;
+  width:30rem;
   height:100%;
   padding: 0 1rem;
   border: 3px solid rgb(255, 174, 0);
   font-weight: 700;
   border-radius: 2px;
+}
+.search-bar h1{
+  width:30rem;
+  height:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 0 1rem;
+  border: 3px solid rgb(255, 174, 0);
+  font-weight: 700;
+  border-radius: 2px;
+  margin:0;
 }
 .search-bar button{
   margin: 0;
@@ -263,4 +276,59 @@ body{
 }
 .search-bar button:hover{
   cursor: pointer;
+}
+.room-settings{
+  margin-top:1rem;
+  width:20rem;
+  height: 10rem;
+  background-color:white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgb(206, 206, 206);
+}
+.room-settings-line{
+  display: flex;
+  height:3.3rem;
+  width:100%;
+}
+.room-settings-line-left{
+  width:50%;
+  height:100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left:1rem;
+}
+.room-settings-line-right{
+  width:50%;
+  height:100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right:1rem;
+}
+.room-settings-line-right button{
+  width:2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #003580;
+  background-color:white;
+}
+.room-settings-line-right button:hover{
+  cursor: pointer;
+  color:white;
+  background-color:#003580;
+}
+.room-settings-line-right h1{
+  margin:0;
+  width:2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:white;
 }
