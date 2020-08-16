@@ -1,4 +1,29 @@
 <div class="search" ng-controller="search-controller">
+    <div class="search-filters">
+        <h2>Search</h2>
+        <h1>Destination</h1>
+        <input ng-model="cityFilter">
+        <h1>From</h1>
+        <input ng-model="firstDate">
+        <h1>To</h1>
+        <input ng-model="secondDate">
+        <select ng-model="adultsNum">
+            <option value="1">1 adult</option>
+            <option ng-repeat="num in selectArray" value="{{num}}">{{num}} adults</option>
+        </select>
+        <div class="search-line">
+            <select ng-model="childrenNum">
+                <option value="0">0 children</option>
+                <option value="1">1 children</option>
+                <option ng-repeat="num in selectArray" value="{{num}}">{{num}} children</option>
+            </select>
+            <select ng-model="roomsNum">
+                <option value="1">1 room</option>
+                <option ng-repeat="num in selectArray" value="{{num}}">{{num}} rooms</option>
+            </select>
+        </div>
+        <button>SEARCH</button>
+    </div>
     <div class="search-content">
         <div class="hotels" ng-repeat="item in hotels">
             <div class="hotel" ng-show="item.city.toLowerCase().includes(cityFilter.toLowerCase())">

@@ -6,13 +6,15 @@
       <input ng-model="data.city" ng-change="writeFunc()" ng-focus="focusFunc($event)" ng-blur="blurFunc($event)">
       <input ng-click="showCalendar()" value="Check-in - Check-out">
       <h1  ng-click="showRoomsSettings()">{{adults}} adults - {{children}} children - {{rooms}} room</h1>
-      <a ng-click="searchFilter()" ng-href="#!/search/">
-      <button ng-show="data.city==='' || data.city==='What is your destination?'">Search</button>
+      <button ng-click="displayMessage()" ng-show="data.city==='' || data.city==='What is your destination?'">Search</button>
+      <a ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}">
+        <button ng-show="data.city!=='' && data.city!=='What is your destination?' && checkIn==='Check In' && checkOut==='Check Out'">Search</button>
       </a>
-      <a ng-click="searchFilter()" ng-href="#!/search/{{data.city}}">
-        <button ng-show="data.city!=='' && data.city!=='What is your destination?'">Search</button>
+      <a ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}/{{checkIn}}-{{checkOut}}">
+        <button ng-show="data.city!=='' && data.city!=='What is your destination?' && checkIn!=='Check In' && checkOut!=='Check Out'">Search</button>
       </a>
     </div>
+    <p ng-show="searchP">To start searching - choose destination</p>
     <ng-include src="'views/calendar.html'"></ng-include>
     <ng-include src="'views/room-settings.html'"></ng-include>
     <div class="ad">
