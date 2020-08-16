@@ -1,7 +1,7 @@
-<div class="search">
+<div class="search" ng-controller="search-controller">
     <div class="search-content">
         <div class="hotels" ng-repeat="item in hotels">
-            <div class="hotel">
+            <div class="hotel" ng-show="item.city.toLowerCase().includes(cityFilter.toLowerCase())">
                 <div class="left-side">
                     <img ng-src="{{item.img}}">
                 </div>
@@ -18,6 +18,9 @@
                     <button>Show prices</button>
                 </div>
             </div>
+        </div>
+        <div class="hotels" ng-show="!found">
+            <h1>No hotel for this city found</h1>
         </div>
       </div>
     </div>

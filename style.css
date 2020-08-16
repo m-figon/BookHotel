@@ -19,6 +19,11 @@ body{
   display: flex;
   align-items: center;
 }
+.nav-bar-content a{
+  display: flex;
+  color:white;
+  text-decoration: none;
+}
 .left,
 .right{
   width: 50%;
@@ -255,4 +260,7 @@ body{
   color: white;
   font-weight: 700;
   border: 0;
+}
+.search-bar button:hover{
+  cursor: pointer;
 }

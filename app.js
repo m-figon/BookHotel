@@ -5,6 +5,9 @@ app.config(['$routeProvider', ($routeProvider) => {
     .when('/home', {
       templateUrl: "views/home.html"
     })
+    .when('/search/:city', {
+      templateUrl: "views/search.html"
+    })
     .when('/search', {
       templateUrl: "views/search.html"
     })
@@ -16,13 +19,45 @@ app.config(['$routeProvider', ($routeProvider) => {
 app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   $scope.calendarVisible = false;
   $scope.hotels=[];
+  $scope.city="What is your destination?";
+  $scope.found=true;
+  $scope.writeFunc = () =>{
+    console.log($scope.city);
+  }
+  $scope.focusFunc = (e) =>{
+    if($scope.city==="What is your destination?"){
+      $scope.city="";
+    }
+  }
+  $scope.blurFunc = (e) =>{
+    if($scope.city===""){
+      $scope.city="What is your destination?";
+    }
+  }
   $scope.showCalendar = () => {
     $scope.calendarVisible = !$scope.calendarVisible;
+  }
+  $scope.searchFilter = () => {
+    $scope.found=false;
+    console.log($scope.city);
+    for(let item of $scope.hotels){
+      if(item.city===$scope.city){
+        $scope.found=true;
+      }
+    }
   }
   $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels').then((data) => {
     $scope.hotels = data.data;
     console.log($scope.hotels);
   })
+}])
+
+app.controller('search-controller', ['$scope', '$http','$routeParams', ($scope, $http,$routeParams) => {
+  $scope.cityFilter="";
+  if($routeParams.city){
+    $scope.cityFilter=$routeParams.city;
+  }
+  
 }])
 
 app.constant("moment", moment);
