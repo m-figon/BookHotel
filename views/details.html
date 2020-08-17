@@ -1,0 +1,54 @@
+<div class="details" ng-controller="details-controller">
+    <div class="search-filters">
+        <h2>Search</h2>
+        <h1>Destination</h1>
+        <input ng-model="cityFilter2">
+        <h1>From</h1>
+        <input ng-model="firstDate2" ng-click="showCalendar()" ng-readonly="true">
+        <ng-include src="'views/calendar.html'"></ng-include>
+        <h1>To</h1>
+        <input ng-model="secondDate2" ng-click="showCalendar()" ng-readonly="true">
+        <select ng-model="adultsNum2">
+            <option value="1">1 adult</option>
+            <option ng-repeat="num in selectArray" value="{{num}}">{{num}} adults</option>
+        </select>
+        <div class="search-line">
+            <select ng-model="childrenNum2">
+                <option value="0">0 children</option>
+                <option value="1">1 children</option>
+                <option ng-repeat="num in selectArray" value="{{num}}">{{num}} children</option>
+            </select>
+            <select ng-model="roomsNum2">
+                <option value="1">1 room</option>
+                <option ng-repeat="num in selectArray" value="{{num}}">{{num}} rooms</option>
+            </select>
+        </div>
+        <a ng-href="#!/search/{{cityFilter2}}/{{adultsNum2}}-{{childrenNum2}}-{{roomsNum2}}">
+            <button
+                ng-show="firstDate2==='Check In' || secondDate2==='Check Out' || firstDate2==='' || secondDate2===''">SEARCH</button>
+        </a>
+        <a ng-href="#!/search/{{cityFilter2}}/{{adultsNum2}}-{{childrenNum2}}-{{roomsNum2}}/{{firstDate2}}-{{secondDate2}}">
+            <button
+                ng-show="firstDate2!=='Check In' && secondDate2!=='Check Out' && firstDate2!=='' && secondDate2!==''">SEARCH</button>
+        </a>
+    </div>
+    <div class="details-content">
+        <h2>{{hotel.name}}</h2>
+        <img ng-src="{{hotel.img}}">
+        <p>{{hotel.longDescription}}</p>
+        <div class="opinions" ng-repeat="item in hotel.opinions">
+            <div class="opinion">
+                <div class="left">
+                    <h1>{{item.author}}</h1>
+                </div>
+                <div class="middle">
+                    <h1>{{item.opinion}}</h1>
+                </div>
+                <div class="right">
+                    <h1>{{item.rating}}</h1>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -5,7 +5,7 @@
         <input ng-model="cityFilter">
         <h1>From</h1>
         <input ng-model="firstDate" ng-click="showCalendar()" ng-readonly="true">
-        <ng-include  src="'views/calendar.html'"></ng-include>
+        <ng-include src="'views/calendar.html'"></ng-include>
         <h1>To</h1>
         <input ng-model="secondDate" ng-click="showCalendar()" ng-readonly="true">
         <select ng-model="adultsNum">
@@ -24,10 +24,12 @@
             </select>
         </div>
         <a ng-href="#!/search/{{cityFilter}}/{{adultsNum}}-{{childrenNum}}-{{roomsNum}}">
-        <button ng-show="firstDate==='Check In' || secondDate==='Check Out' || firstDate==='' || secondDate===''">SEARCH</button>
+            <button
+                ng-show="firstDate==='Check In' || secondDate==='Check Out' || firstDate==='' || secondDate===''">SEARCH</button>
         </a>
         <a ng-href="#!/search/{{cityFilter}}/{{adultsNum}}-{{childrenNum}}-{{roomsNum}}/{{firstDate}}-{{secondDate}}">
-            <button ng-show="firstDate!=='Check In' && secondDate!=='Check Out' && firstDate!=='' && secondDate!==''">SEARCH</button>
+            <button
+                ng-show="firstDate!=='Check In' && secondDate!=='Check Out' && firstDate!=='' && secondDate!==''">SEARCH</button>
         </a>
     </div>
     <div class="search-content">
@@ -37,12 +39,19 @@
                     <img ng-src="{{item.img}}">
                 </div>
                 <div class="middle-side">
-                    <h2>{{item.name}}</h2>
+                    <a ng-href="#!/{{item.name}}/{{cityFilter}}/{{adultsNum}}-{{childrenNum}}-{{roomsNum}}">
+                        <h2
+                            ng-show="firstDate==='Check In' || secondDate==='Check Out' || firstDate==='' || secondDate===''">{{item.name}}</h2>
+                    </a>
+                    <a ng-href="#!/{{item.name}}/{{cityFilter}}/{{adultsNum}}-{{childrenNum}}-{{roomsNum}}/{{firstDate}}-{{secondDate}}">
+                        <h2
+                            ng-show="firstDate!=='Check In' && secondDate!=='Check Out' && firstDate!=='' && secondDate!==''">{{item.name}}</h2>
+                    </a>
                     <div class="stars-line">
                         <img src="imgs/star.png" ng-repeat="x in [].constructor(item.stars) track by $index">
                     </div>
-                   <h1>{{item.city}}</h1>
-                    <p>{{item.description}}</p>
+                    <h1>{{item.city}}</h1>
+                    <p>{{item.shortDescription}}</p>
                 </div>
                 <div class="right-side">
                     <h1>{{item.rating}}</h1>
@@ -53,6 +62,6 @@
         <div class="hotels" ng-show="!found">
             <h1>No hotel for this city found</h1>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+</div>

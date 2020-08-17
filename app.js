@@ -11,6 +11,13 @@ app.config(['$routeProvider', ($routeProvider) => {
     .when('/search/:city/:type', {
       templateUrl: "views/search.html"
     })
+    .when('/:details/:city/:type/:date', {
+      templateUrl: "views/details.html"
+    })
+    .when('/:details/:city/:type', {
+      templateUrl: "views/details.html"
+    })
+    
     .otherwise({
       redirectTo: '/home'
     })
@@ -20,6 +27,8 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   //
   $scope.firstDate = "Check In";
   $scope.secondDate = "Check Out";
+  $scope.firstDate2 = "Check In";
+  $scope.secondDate2 = "Check Out";
   $scope.date1 = moment().format('ll');
   $scope.date2 = moment().add(1, 'months').format('ll');
   $scope.checkIn = "Check In";
@@ -212,6 +221,43 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
     let tmpDate = $routeParams.date.split('-');
     $scope.firstDate = tmpDate[0];
     $scope.secondDate = tmpDate[1];
+    console.log($scope.firstDate);
+    console.log($scope.secondDate);
+  }
+}])
+
+app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope, $http, $routeParams) => {
+  $scope.hotel;
+  if ($routeParams.details) {
+    console.log($routeParams.details);
+    $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels').then((data) => {
+    let hotels = data.data;
+    for(let item of hotels){
+      if(item.name===$routeParams.details){
+        $scope.hotel=item;
+      }
+    }
+  })
+  }
+  $scope.cityFilter2 = "";
+  $scope.adultsNum2 = null;
+  $scope.childrenNum2 = null;
+  $scope.roomsNum2 = null;
+  $scope.selectArray = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+  if ($routeParams.city) {
+    $scope.cityFilter2 = $routeParams.city;
+  }
+  if ($routeParams.type) {
+    let tmpType = $routeParams.type.split('-');
+    $scope.adultsNum2 = tmpType[0];
+    $scope.childrenNum2 = tmpType[1];
+    $scope.roomsNum2 = tmpType[2];
+    console.log($scope.adultsNum);
+  }
+  if ($routeParams.date) {
+    let tmpDate = $routeParams.date.split('-');
+    $scope.firstDate2 = tmpDate[0];
+    $scope.secondDate2 = tmpDate[1];
     console.log($scope.firstDate);
     console.log($scope.secondDate);
   }
