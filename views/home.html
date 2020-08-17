@@ -4,7 +4,7 @@
     <h1>From cozy cottages to luxury apartments</h1>
     <div class="search-bar">
       <input ng-model="data.city" ng-change="writeFunc()" ng-focus="focusFunc($event)" ng-blur="blurFunc($event)">
-      <input ng-click="showCalendar()" value="Check-in - Check-out">
+      <input ng-click="showCalendar()" ng-model="checkInOut">
       <h1  ng-click="showRoomsSettings()">{{adults}} adults - {{children}} children - {{rooms}} room</h1>
       <button ng-click="displayMessage()" ng-show="data.city==='' || data.city==='What is your destination?'">Search</button>
       <a ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}">

@@ -18,16 +18,20 @@ app.config(['$routeProvider', ($routeProvider) => {
 
 app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   //
+  $scope.firstDate = "Check In";
+  $scope.secondDate = "Check Out";
   $scope.date1 = moment().format('ll');
   $scope.date2 = moment().add(1, 'months').format('ll');
   $scope.checkIn = "Check In";
   $scope.checkOut = "Check Out";
+  $scope.checkInOut = $scope.checkIn + '-' + $scope.checkOut;
   $scope.year1 = $scope.date1.substr(8, 4);
   $scope.month1 = $scope.date1.substr(0, 3);
   $scope.month2 = $scope.date2.substr(0, 3);
   $scope.year2 = $scope.date2.substr(8, 4);
-  let previousTarget1= null;
-  let previousTarget2= null;
+  let previousTarget1 = null;
+  let previousTarget2 = null;
+  let chosenDates = 0;
   $scope.monthOperation = (value) => {
     if (value === '-') {
       $scope.date1 = moment($scope.date1).subtract(1, 'months').format('ll');
@@ -45,28 +49,68 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
       $scope.year2 = $scope.date2.substr(8, 4);
     }
   }
-  $scope.chooseDay = (value,num,e) => {
-    if(num===1){
-      console.log($scope.month1+" "+value+", "+$scope.year1);
-      $scope.checkIn=$scope.month1+" "+value+", "+$scope.year1;
-      e.target.style.backgroundColor="#003580";
-      e.target.style.color="white";
-      if(previousTarget1){
-        previousTarget1.style.backgroundColor='white';
-        previousTarget1.style.color='black';
+  $scope.chooseDay = (value, num, e) => {
+    console.log($scope.month1 + " " + value + ", " + $scope.year1);
+    if (num === '1') {
+      if (chosenDates === 0) {
+        if (previousTarget1) {
+          previousTarget1.style.backgroundColor = 'white';
+          previousTarget1.style.color = 'black';
+        }
+        previousTarget1 = e.target;
+        $scope.checkIn = $scope.month1 + " " + value + ", " + $scope.year1;
+        $scope.firstDate = $scope.month1 + " " + value + ", " + $scope.year1;
+        e.target.style.backgroundColor = "#003580";
+        e.target.style.color = "white";
+        chosenDates++;
+      } else if (chosenDates === 1) {
+        if (previousTarget2) {
+          previousTarget2.style.backgroundColor = 'white';
+          previousTarget2.style.color = 'black';
+        }
+        previousTarget2 = e.target;
+        $scope.checkOut = $scope.month1 + " " + value + ", " + $scope.year1;
+        $scope.secondDate = $scope.month1 + " " + value + ", " + $scope.year1;
+        e.target.style.backgroundColor = "#003580";
+        e.target.style.color = "white";
+        chosenDates = 0;
       }
-      previousTarget1 = e.target;
-    }else if(num===2){
-      console.log($scope.month2+" "+value+", "+$scope.year2);
-      $scope.checkOut=$scope.month2+" "+value+", "+$scope.year2;
-      e.target.style.backgroundColor="#003580";
-      e.target.style.color="white";
-      if(previousTarget2){
-        previousTarget2.style.backgroundColor='white';
-        previousTarget2.style.color='black';
+    } else if (num === '2') {
+      if (chosenDates === 0) {
+        $scope.checkIn = $scope.month2 + " " + value + ", " + $scope.year2;
+        $scope.firstDate = $scope.month2 + " " + value + ", " + $scope.year2;
+        e.target.style.backgroundColor = "#003580";
+        e.target.style.color = "white";
+        chosenDates++;
+        if (previousTarget1) {
+          previousTarget1.style.backgroundColor = 'white';
+          previousTarget1.style.color = 'black';
+        }
+        previousTarget1 = e.target;
+      } else if (chosenDates === 1) {
+        $scope.checkOut = $scope.month2 + " " + value + ", " + $scope.year2;
+        $scope.secondDate = $scope.month2 + " " + value + ", " + $scope.year2;
+        e.target.style.backgroundColor = "#003580";
+        e.target.style.color = "white";
+        chosenDates = 0;
+        if (previousTarget2) {
+          previousTarget2.style.backgroundColor = 'white';
+          previousTarget2.style.color = 'black';
+        }
+        previousTarget2 = e.target;
       }
-      previousTarget2 = e.target;
     }
+    if ($scope.checkIn > $scope.checkOut) {
+      let tmpDate = $scope.checkIn;
+      $scope.checkIn = $scope.checkOut;
+      $scope.checkOut = tmpDate;
+    } if ($scope.firstDate > $scope.secondDate) {
+      let tmpDate = $scope.secondDate;
+      $scope.firstDate = $scope.secondDate;
+      $scope.secondDate = tmpDate;
+    }
+    $scope.checkInOut = $scope.checkIn + '-' + $scope.checkOut;
+
   }
   console.log($scope.month1);
   console.log($scope.month2);
@@ -81,63 +125,63 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   //
   $scope.calendarVisible = false;
   $scope.roomSettingsVisible = false;
-  $scope.hotels=[];
-  $scope.found=true;
-  $scope.searchP=false;
-  $scope.data={
-    city:"What is your destination?"
+  $scope.hotels = [];
+  $scope.found = true;
+  $scope.searchP = false;
+  $scope.data = {
+    city: "What is your destination?"
   };
-  $scope.adults=2;
-  $scope.children=0;
-  $scope.rooms=1;
-  $scope.operationFunc = (operation,type) =>{
-    if(type==='adults'){
-      if(operation==='-' && $scope.adults>1){
+  $scope.adults = 2;
+  $scope.children = 0;
+  $scope.rooms = 1;
+  $scope.operationFunc = (operation, type) => {
+    if (type === 'adults') {
+      if (operation === '-' && $scope.adults > 1) {
         $scope.adults--;
-      }else if(operation==='+'){
+      } else if (operation === '+') {
         $scope.adults++;
       }
-    }else if(type==='children'){
-      if(operation==='-'  && $scope.children>0){
+    } else if (type === 'children') {
+      if (operation === '-' && $scope.children > 0) {
         $scope.children--;
-      }else if(operation==='+'){
+      } else if (operation === '+') {
         $scope.children++;
       }
-    }else if(type==='rooms'){
-      if(operation==='-'  && $scope.rooms>1){
+    } else if (type === 'rooms') {
+      if (operation === '-' && $scope.rooms > 1) {
         $scope.rooms--;
-      }else if(operation==='+'){
+      } else if (operation === '+') {
         $scope.rooms++;
       }
     }
   }
-  $scope.focusFunc = (e) =>{
-    if($scope.data.city==="What is your destination?"){
-      $scope.data.city="";
+  $scope.focusFunc = (e) => {
+    if ($scope.data.city === "What is your destination?") {
+      $scope.data.city = "";
     }
   }
-  $scope.blurFunc = (e) =>{
-    if($scope.data.city===""){
-      $scope.data.city="What is your destination?";
+  $scope.blurFunc = (e) => {
+    if ($scope.data.city === "") {
+      $scope.data.city = "What is your destination?";
     }
   }
   $scope.showCalendar = () => {
     $scope.calendarVisible = !$scope.calendarVisible;
-    $scope.roomSettingsVisible=false;
+    $scope.roomSettingsVisible = false;
   }
   $scope.showRoomsSettings = () => {
     $scope.roomSettingsVisible = !$scope.roomSettingsVisible;
-    $scope.calendarVisible=false;
+    $scope.calendarVisible = false;
   }
   $scope.displayMessage = () => {
-    $scope.searchP=true;
+    $scope.searchP = true;
   }
   $scope.searchFilter = () => {
-    $scope.searchP=false;
-    $scope.found=false;
-    for(let item of $scope.hotels){
-      if(item.city.toLowerCase()===$scope.data.city.toLowerCase()){
-        $scope.found=true;
+    $scope.searchP = false;
+    $scope.found = false;
+    for (let item of $scope.hotels) {
+      if (item.city.toLowerCase() === $scope.data.city.toLowerCase()) {
+        $scope.found = true;
       }
     }
     console.log($scope.found);
@@ -148,28 +192,26 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   })
 }])
 
-app.controller('search-controller', ['$scope', '$http','$routeParams', ($scope, $http,$routeParams) => {
-  $scope.cityFilter="";
-  $scope.adultsNum=null;
-  $scope.childrenNum=null;
-  $scope.roomsNum=null;
-  $scope.firstDate="Check In";
-  $scope.secondDate="Check Out";
-  $scope.selectArray=[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
-  if($routeParams.city){
-    $scope.cityFilter=$routeParams.city;
+app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope, $http, $routeParams) => {
+  $scope.cityFilter = "";
+  $scope.adultsNum = null;
+  $scope.childrenNum = null;
+  $scope.roomsNum = null;
+  $scope.selectArray = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+  if ($routeParams.city) {
+    $scope.cityFilter = $routeParams.city;
   }
-  if($routeParams.type){
-    let tmpType=$routeParams.type.split('-');
-    $scope.adultsNum=tmpType[0];
-    $scope.childrenNum=tmpType[1];
-    $scope.roomsNum=tmpType[2];
+  if ($routeParams.type) {
+    let tmpType = $routeParams.type.split('-');
+    $scope.adultsNum = tmpType[0];
+    $scope.childrenNum = tmpType[1];
+    $scope.roomsNum = tmpType[2];
     console.log($scope.adultsNum);
   }
-  if($routeParams.date){
-    let tmpDate=$routeParams.date.split('-');
-    $scope.firstDate=tmpDate[0];
-    $scope.secondDate=tmpDate[1];
+  if ($routeParams.date) {
+    let tmpDate = $routeParams.date.split('-');
+    $scope.firstDate = tmpDate[0];
+    $scope.secondDate = tmpDate[1];
     console.log($scope.firstDate);
     console.log($scope.secondDate);
   }

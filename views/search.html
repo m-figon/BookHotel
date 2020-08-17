@@ -4,9 +4,10 @@
         <h1>Destination</h1>
         <input ng-model="cityFilter">
         <h1>From</h1>
-        <input ng-model="firstDate">
+        <input ng-model="firstDate" ng-click="showCalendar()" ng-readonly="true">
+        <ng-include  src="'views/calendar.html'"></ng-include>
         <h1>To</h1>
-        <input ng-model="secondDate">
+        <input ng-model="secondDate" ng-click="showCalendar()" ng-readonly="true">
         <select ng-model="adultsNum">
             <option value="1">1 adult</option>
             <option ng-repeat="num in selectArray" value="{{num}}">{{num}} adults</option>
@@ -22,7 +23,12 @@
                 <option ng-repeat="num in selectArray" value="{{num}}">{{num}} rooms</option>
             </select>
         </div>
-        <button>SEARCH</button>
+        <a ng-href="#!/search/{{cityFilter}}/{{adultsNum}}-{{childrenNum}}-{{roomsNum}}">
+        <button ng-show="firstDate==='Check In' || secondDate==='Check Out' || firstDate==='' || secondDate===''">SEARCH</button>
+        </a>
+        <a ng-href="#!/search/{{cityFilter}}/{{adultsNum}}-{{childrenNum}}-{{roomsNum}}/{{firstDate}}-{{secondDate}}">
+            <button ng-show="firstDate!=='Check In' && secondDate!=='Check Out' && firstDate!=='' && secondDate!==''">SEARCH</button>
+        </a>
     </div>
     <div class="search-content">
         <div class="hotels" ng-repeat="item in hotels">
