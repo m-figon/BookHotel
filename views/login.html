@@ -1,0 +1,34 @@
+<div class="login" ng-controller="login-controller">
+    <div ng-show="part==='1'" class="login-content">
+        <div class="line">
+            <h1 id="blue">Book</h2>
+            <h1 id="aqua">Hotel</h2>
+                <h1>Account</h1>
+        </div>
+        <h2>Enter account name</h2>
+        <p id="bottom">Sign in to access all the booking functionality</p>
+        <p>Email Address</p>
+        <input ng-model="email">
+        <button ng-click="goNext()">Next</button>
+        <div class="line">
+            <p>Don't have an account already?</p>
+            <p id="blue">Sign up!</p>
+        </div>
+    </div>
+    <div ng-show="part==='2'" class="login-content">
+        <div class="line">
+            <h1 id="blue">Book</h2>
+            <h1 id="aqua">Hotel</h2>
+                <h1>Account</h1>
+        </div>
+        <h2>Enter password</h2>
+            <p>Enter password for address</p>
+            <p id="bold">{{email}}</p>
+        <p>Password</p>
+        <input ng-model="password">
+        <button ng-click="loginFunc()">Login</button>
+        <div class="line">
+            <p id="blue">Don't remember password?</p>
+        </div>
+    </div>
+</div>

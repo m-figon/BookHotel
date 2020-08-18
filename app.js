@@ -5,6 +5,9 @@ app.config(['$routeProvider', ($routeProvider) => {
     .when('/home', {
       templateUrl: "views/home.html"
     })
+    .when('/login', {
+      templateUrl: "views/login.html"
+    })
     .when('/search/:city/:type/:date', {
       templateUrl: "views/search.html"
     })
@@ -260,6 +263,18 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
     $scope.secondDate2 = tmpDate[1];
     console.log($scope.firstDate);
     console.log($scope.secondDate);
+  }
+}])
+
+app.controller('login-controller', ['$scope', '$http', '$routeParams', ($scope, $http, $routeParams) => {
+  $scope.email="mateusz.figon97@gmail.com";
+  $scope.part='1';
+  $scope.password="";
+  $scope.goNext = () =>{
+    $scope.part="2";
+  }
+  $scope.loginFunc = () =>{
+    alert('you logged');
   }
 }])
 
