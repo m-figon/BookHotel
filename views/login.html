@@ -5,10 +5,13 @@
             <h1 id="aqua">Hotel</h2>
                 <h1>Account</h1>
         </div>
-        <h2>Enter account name</h2>
+        <h2>Enter email address</h2>
         <p id="bottom">Sign in to access all the booking functionality</p>
         <p>Email Address</p>
         <input ng-model="email">
+        <p id="warning" ng-show="loginP">
+            Please enter correct email address
+        </p>
         <button ng-click="goNext()">Next</button>
         <div class="line">
             <p>Don't have an account already?</p>
@@ -25,7 +28,10 @@
             <p>Enter password for address</p>
             <p id="bold">{{email}}</p>
         <p>Password</p>
-        <input ng-model="password">
+        <input type="password" ng-model="password">
+        <p id="warning" ng-show="loginP">
+            Entered email and password aren't correct
+        </p>
         <button ng-click="loginFunc()">Login</button>
         <div class="line">
             <p id="blue">Don't remember password?</p>

@@ -1,0 +1,53 @@
+<div class="login" ng-controller="register-controller">
+    <div ng-show="part==='1'" class="login-content">
+        <div class="line">
+            <h1 id="blue">Book</h2>
+            <h1 id="aqua">Hotel</h2>
+                <h1>Account</h1>
+        </div>
+        <h2>Create account</h2>
+        <p id="bottom">Create account to access all the booking functionality</p>
+        <p>Email Address</p>
+        <input ng-model="email">
+        <p id="warning" ng-show="emailP">
+            Please enter correct email address
+        </p>
+        <button ng-click="goNext('2')">Next</button>
+    </div>
+    <div ng-show="part==='2'" class="login-content">
+        <div class="line">
+            <h1 id="blue">Book</h2>
+            <h1 id="aqua">Hotel</h2>
+                <h1>Account</h1>
+        </div>
+        <h2>Enter password</h2>
+            <p>Enter password for BookHotel service register to address</p>
+            <p id="bold">{{email}}</p>
+        <p>Password</p>
+        <input type="password" ng-model="password1">
+        <p id="warning" ng-show="password1P">
+            Entered password must consist of 8-13 characters, at least one upper and one lower case letter, one digit, one special sign
+        </p>
+        <p>Confirm Password</p>
+        <input type="password" ng-model="password2">
+        <p id="warning" ng-show="password2P">
+            Entered password must be correct and password confirmation must be same as the password
+        </p>
+        <button ng-click="goNext('3')">Next</button>
+    </div>
+    <div ng-show="part==='3'" class="login-content">
+        <div class="line">
+            <h1 id="blue">Book</h2>
+            <h1 id="aqua">Hotel</h2>
+                <h1>Account</h1>
+        </div>
+        <h2>Enter account name</h2>
+        <p id="bottom">Enter account name to finish account creating</p>
+        <p>Account Name</p>
+        <input ng-model="account">
+        <p id="warning" ng-show="accountP">
+            Account Name must consist of 4-10 letters or digits
+        </p>
+        <button ng-click="goNext('4')">Register</button>
+    </div>
+</div>

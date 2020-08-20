@@ -8,6 +8,9 @@ app.config(['$routeProvider', ($routeProvider) => {
     .when('/login', {
       templateUrl: "views/login.html"
     })
+    .when('/register', {
+      templateUrl: "views/register.html"
+    })
     .when('/search/:city/:type/:date', {
       templateUrl: "views/search.html"
     })
@@ -20,7 +23,7 @@ app.config(['$routeProvider', ($routeProvider) => {
     .when('/:details/:city/:type', {
       templateUrl: "views/details.html"
     })
-    
+
     .otherwise({
       redirectTo: '/home'
     })
@@ -28,6 +31,7 @@ app.config(['$routeProvider', ($routeProvider) => {
 
 app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   //
+  $scope.logedAc = "";
   $scope.firstDate = "Check In";
   $scope.secondDate = "Check Out";
   $scope.firstDate2 = "Check In";
@@ -44,6 +48,10 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   let previousTarget1 = null;
   let previousTarget2 = null;
   let chosenDates = 0;
+  $scope.logedAcChange = (value) => {
+    $scope.logedAc = value;
+    console.log($scope.logedAc);
+  }
   $scope.monthOperation = (value) => {
     if (value === '-') {
       $scope.date1 = moment($scope.date1).subtract(1, 'months').format('ll');
@@ -234,13 +242,13 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
   if ($routeParams.details) {
     console.log($routeParams.details);
     $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels').then((data) => {
-    let hotels = data.data;
-    for(let item of hotels){
-      if(item.name===$routeParams.details){
-        $scope.hotel=item;
+      let hotels = data.data;
+      for (let item of hotels) {
+        if (item.name === $routeParams.details) {
+          $scope.hotel = item;
+        }
       }
-    }
-  })
+    })
   }
   $scope.cityFilter2 = "";
   $scope.adultsNum2 = null;
@@ -266,15 +274,101 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
   }
 }])
 
-app.controller('login-controller', ['$scope', '$http', '$routeParams', ($scope, $http, $routeParams) => {
-  $scope.email="mateusz.figon97@gmail.com";
-  $scope.part='1';
-  $scope.password="";
-  $scope.goNext = () =>{
-    $scope.part="2";
+app.controller('login-controller', ['$scope', '$http', '$routeParams', '$location', ($scope, $http, $routeParams, $location) => {
+  $scope.email = "";
+  $scope.loginP = false;
+  $scope.part = '1';
+  $scope.password = "";
+  $scope.goNext = () => {
+    if (!($scope.email.match(/^[a-z0-9\._\-]+@[a-z0-9\.\-]+\.[a-z]{2,4}$/) ===
+      null)) {
+      $scope.part = "2";
+      $scope.loginP = false;
+    } else {
+      $scope.loginP = true;
+    }
   }
-  $scope.loginFunc = () =>{
-    alert('you logged');
+  $scope.loginFunc = () => {
+
+    $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then((data) => {
+      let users = data.data;
+      let correct = false;
+      for (let item of users) {
+        if (item.email === $scope.email && item.password === $scope.password) {
+          correct = true;
+          $scope.loginP = false;
+          $scope.$parent.logedAcChange(item.account);
+          alert('you logged');
+          $scope.email = "";
+          $scope.loginP = false;
+          $scope.part = '1';
+          $scope.password = "";
+          $location.path('/home');
+        }
+      }
+      if (!correct) {
+        $scope.loginP = true;
+      }
+    })
+  }
+}])
+
+app.controller('register-controller', ['$scope', '$http', '$routeParams', '$location', ($scope, $http, $routeParams, $location) => {
+  $scope.email = "";
+  $scope.emailP = false;
+  $scope.accountP = false;
+  $scope.password1P = false;
+  $scope.password2P = false;
+  $scope.part = '1';
+  $scope.password1 = "";
+  $scope.password2 = "";
+
+  $scope.goNext = (value) => {
+    if (value === '2') {
+      console.log('gonext')
+      if (!($scope.email.match(/^[a-z0-9\._\-]+@[a-z0-9\.\-]+\.[a-z]{2,4}$/) ===
+        null)) {
+        $scope.emailP = false;
+        $scope.part = '2';
+      } else {
+        $scope.emailP = true;
+      }
+    } else if (value === '3') {
+      if (!($scope.password1.match(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\.\-_@$!%*#?&])[A-Za-z\d\.\-_@$!%*#?&]{8,13}$/
+      ) ===
+        null)) {
+        $scope.password1P = false;
+      } else {
+        $scope.password1P = true;
+      }
+      if (!($scope.password1.match(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\.\-_@$!%*#?&])[A-Za-z\d\.\-_@$!%*#?&]{8,13}$/
+      ) ===
+      null) && ($scope.password1 === $scope.password2)) {
+        $scope.password2P = false;
+      } else {
+        $scope.password2P = true;
+      }
+      if(!$scope.password2P && !$scope.password1P){
+        $scope.part = '3';
+      }
+    }else if (value === '4') {
+      if (!($scope.account.match(/^[a-zA-Z0-9\.\-_]{4,10}$/) === null)) {
+        $scope.accountP = false;
+        $http.post('https://rocky-citadel-32862.herokuapp.com/BookHotel/users', {
+        account: $scope.account,
+        email: $scope.email,
+        password: $scope.password1,
+        orders: []
+      }).then(()=>{
+        alert('account created');
+      })
+      } else {
+        $scope.accountP = true;
+      }
+    }
+
   }
 }])
 
