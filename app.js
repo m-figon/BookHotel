@@ -31,6 +31,8 @@ app.config(['$routeProvider', ($routeProvider) => {
 
 app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   //
+  let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  $scope.timeDifference = null;
   $scope.logedAc = "";
   $scope.firstDate = "Check In";
   $scope.secondDate = "Check Out";
@@ -130,7 +132,6 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
       $scope.secondDate = tmpDate;
     }
     $scope.checkInOut = $scope.checkIn + '-' + $scope.checkOut;
-
   }
   console.log($scope.month1);
   console.log($scope.month2);
@@ -213,6 +214,7 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
 }])
 
 app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope, $http, $routeParams) => {
+  let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   $scope.cityFilter = "";
   $scope.adultsNum = null;
   $scope.childrenNum = null;
@@ -234,6 +236,25 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
     $scope.secondDate = tmpDate[1];
     console.log($scope.firstDate);
     console.log($scope.secondDate);
+    let first = 0;
+    let second = 0;
+    console.log($scope.secondDate);
+    console.log($scope.firstDate);
+    for (let [key, item] of months.entries()) {
+      if (item === $scope.secondDate.substr(0, 3)) {
+        second = key;
+
+      } if (item === $scope.firstDate.substr(0, 3)) {
+        first = key;
+      }
+    }
+    if (second === first) {
+      $scope.timeDifference = parseInt($scope.secondDate.substr(4, 2)) - parseInt($scope.firstDate.substr(4, 2))
+    } else if (second === first + 1) {
+      $scope.timeDifference = parseInt($scope.secondDate.substr(4, 2)) - parseInt($scope.firstDate.substr(4, 2))
+      $scope.timeDifference += 30;
+    }
+    console.log($scope.timeDifference);
   }
 }])
 
@@ -269,8 +290,8 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
     let tmpDate = $routeParams.date.split('-');
     $scope.firstDate2 = tmpDate[0];
     $scope.secondDate2 = tmpDate[1];
-    console.log($scope.firstDate);
-    console.log($scope.secondDate);
+    console.log($scope.firstDate2);
+    console.log($scope.secondDate2);
   }
 }])
 
@@ -345,25 +366,25 @@ app.controller('register-controller', ['$scope', '$http', '$routeParams', '$loca
       if (!($scope.password1.match(
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\.\-_@$!%*#?&])[A-Za-z\d\.\-_@$!%*#?&]{8,13}$/
       ) ===
-      null) && ($scope.password1 === $scope.password2)) {
+        null) && ($scope.password1 === $scope.password2)) {
         $scope.password2P = false;
       } else {
         $scope.password2P = true;
       }
-      if(!$scope.password2P && !$scope.password1P){
+      if (!$scope.password2P && !$scope.password1P) {
         $scope.part = '3';
       }
-    }else if (value === '4') {
+    } else if (value === '4') {
       if (!($scope.account.match(/^[a-zA-Z0-9\.\-_]{4,10}$/) === null)) {
         $scope.accountP = false;
         $http.post('https://rocky-citadel-32862.herokuapp.com/BookHotel/users', {
-        account: $scope.account,
-        email: $scope.email,
-        password: $scope.password1,
-        orders: []
-      }).then(()=>{
-        alert('account created');
-      })
+          account: $scope.account,
+          email: $scope.email,
+          password: $scope.password1,
+          orders: []
+        }).then(() => {
+          alert('account created');
+        })
       } else {
         $scope.accountP = true;
       }

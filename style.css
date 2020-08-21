@@ -295,6 +295,9 @@ a {
   width: 25%;
 }
 .hotel .right-side h1 {
+  font-size: 1.0rem;
+}
+.hotel .right-side h2 {
   font-size: 1.5rem;
 }
 .hotel .right-side button {

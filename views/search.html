@@ -54,7 +54,8 @@
                     <p>{{item.shortDescription}}</p>
                 </div>
                 <div class="right-side">
-                    <h1>{{item.rating}}</h1>
+                    <h2>{{item.rating}}</h2>
+                    <h1 ng-show="timeDifference">{{timeDifference*item.price*roomsNum | currency:"PLN"}}</h1>
                     <button>Show prices</button>
                 </div>
             </div>
