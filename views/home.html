@@ -13,6 +13,7 @@
       <a ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}/{{checkIn}}-{{checkOut}}">
         <button ng-show="data.city!=='' && data.city!=='What is your destination?' && checkIn!=='Check In' && checkOut!=='Check Out'">Search</button>
       </a>
+      <button ng-show="data.city!=='' && data.city!=='What is your destination?' && ((checkIn!=='Check In' && checkOut==='Check Out')|| (checkOut!=='Check Out' && checkIn==='Check In'))">Search</button>
     </div>
     <p ng-show="searchP">To start searching - choose destination</p>
     <ng-include src="'views/calendar.html'"></ng-include>

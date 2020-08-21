@@ -41,12 +41,17 @@
             <h1 id="aqua">Hotel</h2>
                 <h1>Account</h1>
         </div>
-        <h2>Enter account name</h2>
-        <p id="bottom">Enter account name to finish account creating</p>
-        <p>Account Name</p>
-        <input ng-model="account">
-        <p id="warning" ng-show="accountP">
-            Account Name must consist of 4-10 letters or digits
+        <h2>Enter first name and last name</h2>
+        <p id="bottom">Enter first and last name to finish account creating</p>
+        <p>First Name</p>
+        <input ng-model="firstName">
+        <p id="warning" ng-show="firstNameP">
+            First name must consist of 4-10 letters
+        </p>
+        <p>Last Name</p>
+        <input ng-model="lastName">
+        <p id="warning" ng-show="lastNameP">
+            Last name must consist of 4-10 letters
         </p>
         <button ng-click="goNext('4')">Register</button>
     </div>

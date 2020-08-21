@@ -578,6 +578,45 @@ box-shadow: 0px 0px 10px 0px #003580;
   display: flex;
   align-items: center;
 }
+.price-line{
+  display: flex;
+  align-items: center;
+  width:50rem;
+  margin:1rem 0;
+}
+.price-line .left,
+.price-line .right{
+  width:50%;
+  display: flex;
+  align-items: center;
+}
+.price-line .left{
+  justify-content: flex-start;
+}
+.price-line .left h1{
+  color:#003580;
+  font-weight: 700;
+}
+.price-line .right{
+  justify-content: flex-end;
+}
+.price-line .right button{
+  width: 5rem;
+  height: 2rem;
+  display: flex;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 1px solid gray;
+  background-color: rgb(255, 174, 0);
+}
+#orange{
+  color:rgb(255, 174, 0);
+}
+#orange:hover{
+  cursor: pointer;
+}
 .line p{
   margin:0;
   margin-right: 0.5rem;

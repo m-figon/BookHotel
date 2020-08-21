@@ -36,6 +36,17 @@
         <h2>{{hotel.name}}</h2>
         <img ng-src="{{hotel.img}}">
         <p>{{hotel.longDescription}}</p>
+        <div class="price-line">
+            <div class="left">
+                <h1 ng-show="timeDifference2">Todays price: {{timeDifference2*hotel.price*roomsNum2 | currency:"PLN"}}</h1>
+
+            </div>
+            <div class="right">
+                <button ng-show="logedAc!==''" ng-click="reserveFunc()">Reserve</button>
+                <a ng-href="#!/login"><h1 id="orange" ng-show="logedAc===''">To reserve you have to be logged in</h1></a>
+            </div>
+        </div>
+
         <div class="opinions" ng-repeat="item in hotel.opinions">
             <div class="opinion">
                 <div class="left">
@@ -48,7 +59,6 @@
                     <h1>{{item.rating}}</h1>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

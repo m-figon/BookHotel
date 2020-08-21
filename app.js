@@ -352,6 +352,8 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
 
 app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope, $http, $routeParams) => {
   $scope.hotel;
+  $scope.timeDifference2;
+  let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   if ($routeParams.details) {
     console.log($routeParams.details);
     $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels').then((data) => {
@@ -384,6 +386,49 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
     $scope.secondDate2 = tmpDate[1];
     console.log($scope.firstDate2);
     console.log($scope.secondDate2);
+    let first = 0;
+    let second = 0;
+    for (let [key, item] of months.entries()) {
+      if (item === $scope.secondDate2.substr(0, 3)) {
+        second = key;
+
+      } if (item === $scope.firstDate2.substr(0, 3)) {
+        first = key;
+      }
+    }
+    if (second === first) {
+      $scope.timeDifference2 = parseInt($scope.secondDate2.substr(4, 2)) - parseInt($scope.firstDate2.substr(4, 2))
+    } else if (second === first + 1) {
+      $scope.timeDifference2 = parseInt($scope.secondDate2.substr(4, 2)) - parseInt($scope.firstDate2.substr(4, 2))
+      $scope.timeDifference2 += 30;
+    }
+    console.log($scope.timeDifference2);
+  }
+  $scope.reserveFunc=()=>{
+    $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then((data) => {
+    let users = data.data;
+    let user=null;
+    let newOrders= null;
+    for(let item of users){
+      if($scope.logedAc===item.firstName+" "+item.lastName){
+        user=item;
+        newOrders=item.orders.slice();
+        console.log($scope.hotel);
+        newOrders.push($scope.hotel);
+        $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + user.id, {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        password: user.password,
+        orders: newOrders,
+        id: user.id
+      }).then(() => {
+        alert('you reserved!');
+      })
+      }
+    }
+  })
+    
   }
 }])
 
@@ -410,7 +455,7 @@ app.controller('login-controller', ['$scope', '$http', '$routeParams', '$locatio
         if (item.email === $scope.email && item.password === $scope.password) {
           correct = true;
           $scope.loginP = false;
-          $scope.$parent.logedAcChange(item.account);
+          $scope.$parent.logedAcChange(item.firstName+" "+item.lastName);
           alert('you logged');
           $scope.email = "";
           $scope.loginP = false;
@@ -428,8 +473,11 @@ app.controller('login-controller', ['$scope', '$http', '$routeParams', '$locatio
 
 app.controller('register-controller', ['$scope', '$http', '$routeParams', '$location', ($scope, $http, $routeParams, $location) => {
   $scope.email = "";
+  $scope.firstName = "";
+  $scope.lastName = "";
   $scope.emailP = false;
-  $scope.accountP = false;
+  $scope.firstNameP = false;
+  $scope.lastNameP = false;
   $scope.password1P = false;
   $scope.password2P = false;
   $scope.part = '1';
@@ -467,18 +515,31 @@ app.controller('register-controller', ['$scope', '$http', '$routeParams', '$loca
         $scope.part = '3';
       }
     } else if (value === '4') {
-      if (!($scope.account.match(/^[a-zA-Z0-9\.\-_]{4,10}$/) === null)) {
-        $scope.accountP = false;
+      let correctNames=true;
+      if (!($scope.firstName.match(/^[a-zA-Z]{4,10}$/) === null)) {
+        $scope.firstNameP = false;
+        
+      } else {
+        $scope.firstNameP = true;
+        correctNames=false;
+      }
+      if (!($scope.lastName.match(/^[a-zA-Z]{4,10}$/) === null)) {
+        $scope.lastNameP = false;
+        
+      } else {
+        $scope.lastNameP = true;
+        correctNames=false;
+      }
+      if(correctNames){
         $http.post('https://rocky-citadel-32862.herokuapp.com/BookHotel/users', {
-          account: $scope.account,
+          firstName: $scope.firstName,
+          lastName: $scope.lastName,
           email: $scope.email,
           password: $scope.password1,
           orders: []
         }).then(() => {
           alert('account created');
         })
-      } else {
-        $scope.accountP = true;
       }
     }
 
