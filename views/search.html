@@ -5,7 +5,7 @@
         <input ng-model="cityFilter">
         <h1>From</h1>
         <input ng-model="firstDate" ng-click="showCalendar()" ng-readonly="true">
-        <ng-include src="'views/calendar.html'"></ng-include>
+        <ng-include src="'views/calendar2.html'"></ng-include>
         <h1>To</h1>
         <input ng-model="secondDate" ng-click="showCalendar()" ng-readonly="true">
         <select ng-model="adultsNum">
@@ -33,7 +33,27 @@
         </a>
     </div>
     <div class="search-content">
-        <div class="hotels" ng-repeat="item in hotels">
+        <div class="filters">
+            <button ng-click="filterFunc($event,1)">
+                Price (from lowest)
+            </button>
+            <button ng-click="filterFunc($event,2)">
+                Price (from highest)
+            </button>
+            <button ng-click="filterFunc($event,3)">
+                Rating (from highest)
+            </button>
+            <button ng-click="filterFunc($event,4)">
+                Rating (from lowest)
+            </button>
+            <button ng-click="filterFunc($event,5)">
+                Stars 1-5 
+            </button>
+            <button ng-click="filterFunc($event,6)">
+                Stars 5-1 
+            </button>
+        </div>
+        <div class="hotels" ng-repeat="item in hotels  | orderBy:order">
             <div class="hotel" ng-show="item.city.toLowerCase().includes(cityFilter.toLowerCase())">
                 <div class="left-side">
                     <img ng-src="{{item.img}}">

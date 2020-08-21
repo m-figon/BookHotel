@@ -33,11 +33,8 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   //
   let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   $scope.timeDifference = null;
+  $scope.previousFilterButton;
   $scope.logedAc = "";
-  $scope.firstDate = "Check In";
-  $scope.secondDate = "Check Out";
-  $scope.firstDate2 = "Check In";
-  $scope.secondDate2 = "Check Out";
   $scope.date1 = moment().format('ll');
   $scope.date2 = moment().add(1, 'months').format('ll');
   $scope.checkIn = "Check In";
@@ -47,6 +44,7 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   $scope.month1 = $scope.date1.substr(0, 3);
   $scope.month2 = $scope.date2.substr(0, 3);
   $scope.year2 = $scope.date2.substr(8, 4);
+  $scope.order="";
   let previousTarget1 = null;
   let previousTarget2 = null;
   let chosenDates = 0;
@@ -81,7 +79,6 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
         }
         previousTarget1 = e.target;
         $scope.checkIn = $scope.month1 + " " + value + ", " + $scope.year1;
-        $scope.firstDate = $scope.month1 + " " + value + ", " + $scope.year1;
         e.target.style.backgroundColor = "#003580";
         e.target.style.color = "white";
         chosenDates++;
@@ -92,7 +89,6 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
         }
         previousTarget2 = e.target;
         $scope.checkOut = $scope.month1 + " " + value + ", " + $scope.year1;
-        $scope.secondDate = $scope.month1 + " " + value + ", " + $scope.year1;
         e.target.style.backgroundColor = "#003580";
         e.target.style.color = "white";
         chosenDates = 0;
@@ -100,7 +96,6 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
     } else if (num === '2') {
       if (chosenDates === 0) {
         $scope.checkIn = $scope.month2 + " " + value + ", " + $scope.year2;
-        $scope.firstDate = $scope.month2 + " " + value + ", " + $scope.year2;
         e.target.style.backgroundColor = "#003580";
         e.target.style.color = "white";
         chosenDates++;
@@ -111,7 +106,6 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
         previousTarget1 = e.target;
       } else if (chosenDates === 1) {
         $scope.checkOut = $scope.month2 + " " + value + ", " + $scope.year2;
-        $scope.secondDate = $scope.month2 + " " + value + ", " + $scope.year2;
         e.target.style.backgroundColor = "#003580";
         e.target.style.color = "white";
         chosenDates = 0;
@@ -126,10 +120,6 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
       let tmpDate = $scope.checkIn;
       $scope.checkIn = $scope.checkOut;
       $scope.checkOut = tmpDate;
-    } if ($scope.firstDate > $scope.secondDate) {
-      let tmpDate = $scope.secondDate;
-      $scope.firstDate = $scope.secondDate;
-      $scope.secondDate = tmpDate;
     }
     $scope.checkInOut = $scope.checkIn + '-' + $scope.checkOut;
   }
@@ -211,6 +201,23 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
     $scope.hotels = data.data;
     console.log($scope.hotels);
   })
+  $scope.filterFunc = (e,value) =>{
+    e.target.style.backgroundColor="green";
+    e.target.style.color="white";
+    switch(value){
+      case 1: $scope.order="-price"; break;
+      case 2: $scope.order="price"; break;
+      case 3: $scope.order="-rating"; break;
+      case 4: $scope.order="rating"; break;
+      case 5: $scope.order="stars"; break;
+      case 6: $scope.order="-stars"; break;
+    }
+    if($scope.previousFilterButton){
+      $scope.previousFilterButton.style.backgroundColor="white";
+      $scope.previousFilterButton.style.color="black";
+    }
+    $scope.previousFilterButton=e.target;
+  }
 }])
 
 app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope, $http, $routeParams) => {
@@ -219,6 +226,19 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
   $scope.adultsNum = null;
   $scope.childrenNum = null;
   $scope.roomsNum = null;
+  $scope.firstDate = "Check In";
+  $scope.secondDate = "Check Out";
+  $scope.checkInOut2;
+  let chosenDates2=0;
+  let previousTarget1 = null;
+  let previousTarget2 = null;
+  $scope.date3 = moment().format('ll');
+  $scope.date4 = moment().add(1, 'months').format('ll');
+  $scope.checkInOut2 = $scope.firstDate + '-' + $scope.secondDate;
+  $scope.year3 = $scope.date3.substr(8, 4);
+  $scope.month3 = $scope.date3.substr(0, 3);
+  $scope.month4 = $scope.date4.substr(0, 3);
+  $scope.year4 = $scope.date4.substr(8, 4);
   $scope.selectArray = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
   if ($routeParams.city) {
     $scope.cityFilter = $routeParams.city;
@@ -238,8 +258,6 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
     console.log($scope.secondDate);
     let first = 0;
     let second = 0;
-    console.log($scope.secondDate);
-    console.log($scope.firstDate);
     for (let [key, item] of months.entries()) {
       if (item === $scope.secondDate.substr(0, 3)) {
         second = key;
@@ -256,6 +274,80 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
     }
     console.log($scope.timeDifference);
   }
+  $scope.monthOperation2 = (value) => {
+    if (value === '-') {
+      $scope.date3 = moment($scope.date3).subtract(1, 'months').format('ll');
+      $scope.date4 = moment($scope.date4).subtract(1, 'months').format('ll');
+      $scope.year3 = $scope.date3.substr(8, 4);
+      $scope.month3 = $scope.date3.substr(0, 3);
+      $scope.month4 = $scope.date4.substr(0, 3);
+      $scope.year4 = $scope.date4.substr(8, 4);
+    } else if (value === "+") {
+      $scope.date3 = moment($scope.date3).add(1, 'months').format('ll');
+      $scope.date4 = moment($scope.date4).add(1, 'months').format('ll');
+      $scope.year3 = $scope.date3.substr(8, 4);
+      $scope.month3 = $scope.date3.substr(0, 3);
+      $scope.month4 = $scope.date4.substr(0, 3);
+      $scope.year4 = $scope.date4.substr(8, 4);
+    }
+  }
+  $scope.chooseDay2 = (value, num, e) => {
+    console.log($scope.month3 + " " + value + ", " + $scope.year3);
+    $scope.firstDate = $scope.month3 + " " + value + ", " + $scope.year3;
+    if (num === '1') {
+      if (chosenDates2 === 0) {
+        if (previousTarget1) {
+          previousTarget1.style.backgroundColor = 'white';
+          previousTarget1.style.color = 'black';
+        }
+        previousTarget1 = e.target;
+        $scope.firstDate = $scope.month3 + " " + value + ", " + $scope.year3;
+        e.target.style.backgroundColor = "#003580";
+        e.target.style.color = "white";
+        chosenDates2++;
+      } else if (chosenDates2 === 1) {
+        if (previousTarget2) {
+          previousTarget2.style.backgroundColor = 'white';
+          previousTarget2.style.color = 'black';
+        }
+        previousTarget2 = e.target;
+        $scope.secondDate = $scope.month3 + " " + value + ", " + $scope.year3;
+        e.target.style.backgroundColor = "#003580";
+        e.target.style.color = "white";
+        chosenDates2 = 0;
+      }
+    } else if (num === '2') {
+      if (chosenDates2 === 0) {
+        $scope.firstDate = $scope.month4 + " " + value + ", " + $scope.year4;
+        e.target.style.backgroundColor = "#003580";
+        e.target.style.color = "white";
+        chosenDates2++;
+        if (previousTarget1) {
+          previousTarget1.style.backgroundColor = 'white';
+          previousTarget1.style.color = 'black';
+        }
+        previousTarget1 = e.target;
+      } else if (chosenDates2 === 1) {
+        $scope.secondDate = $scope.month4 + " " + value + ", " + $scope.year4;
+        e.target.style.backgroundColor = "#003580";
+        e.target.style.color = "white";
+        chosenDates2 = 0;
+        if (previousTarget2) {
+          previousTarget2.style.backgroundColor = 'white';
+          previousTarget2.style.color = 'black';
+        }
+        previousTarget2 = e.target;
+      }
+    }
+    if ($scope.firstDate > $scope.secondDate) {
+      let tmpDate = $scope.firstDate;
+      $scope.firstDate = $scope.secondDate;
+      $scope.secondDate = tmpDate;
+    }
+    $scope.checkInOut2 = $scope.firstDate + '-' + $scope.secondDate;
+    console.log($scope.checkInOut2);
+  }
+  
 }])
 
 app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope, $http, $routeParams) => {
