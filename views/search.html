@@ -78,11 +78,14 @@
                 </div>
                 <div class="right-side">
                     <h2>{{item.rating}}</h2>
+                    <h1 ng-show="item.freeRooms>=5">Rooms left: {{item.freeRooms}}</h1>
+                    <h1 id="warning" ng-show="item.freeRooms<5 && item.freeRooms>0">Rooms left: {{item.freeRooms}}</h1>
+                    <h1 id="warning" ng-show="item.freeRooms===0">No Rooms Left</h1>    
                     <h1 ng-show="timeDifference">
                         {{timeDifference*item.price*currencyMultiplier*roomsNum | currency: data.selectedCurrency}}</h1>
-                    <button ng-show="logedAc!==''" ng-click="reserveFunc(item)">Reserve</button>
+                    <button ng-show="logedAc!=='' && item.freeRooms>0 && firstDate!=='Check In' && secondDate!=='Check Out'" ng-click="reserveFunc(item)">Reserve</button>
                     <a href="#!/login">
-                        <h1 id="orange" ng-show="logedAc===''">Login to reserve</h1>
+                        <h1 id="orange" ng-show="logedAc==='' && item.freeRooms>0">Login to reserve</h1>
                     </a>
 
                 </div>

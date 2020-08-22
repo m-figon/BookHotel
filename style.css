@@ -323,7 +323,18 @@ a {
   font-size: 1.0rem;
 }
 .hotel .right-side h2 {
-  font-size: 1.5rem;
+  background-color: #003580;
+  color: white;
+  font-weight: 700;
+  width: 3rem;
+  height:2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 0;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  border: 0;
+  font-size:1.0rem;
 }
 .hotel .right-side button {
   border-radius: 2px;
@@ -554,7 +565,17 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0.5rem 0;background-color: #003580;
+  color: white;
+  font-weight: 700;
+  width: 2rem;
+  height:1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0.5rem 0;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  border: 0;
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   border: 0;
 }

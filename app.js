@@ -54,7 +54,21 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
             orders: newOrders,
             id: user.id
           }).then(() => {
+            $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels/' + obj.id, {
+              name: obj.name,
+              price: obj.price,
+              stars: obj.stars,
+              img: obj.img,
+              city: obj.city,
+              freeRooms: obj.freeRooms-1,
+              shortDescription: obj.shortDescription,
+              longDescription: obj.longDescription,
+              rating: obj.rating,
+              opinions: obj.opinions,
+              id: obj.id
+          }).then(() => {
             alert('you reserved!');
+          })
           })
         }
       }
@@ -464,6 +478,8 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
   $scope.adultsNum2 = null;
   $scope.childrenNum2 = null;
   $scope.roomsNum2 = null;
+  $scope.firstDate2 = "Check In";
+  $scope.secondDate2 = "Check Out";
   $scope.selectArray = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
   if ($routeParams.city) {
     $scope.cityFilter2 = $routeParams.city;
@@ -518,7 +534,21 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
             orders: newOrders,
             id: user.id
           }).then(() => {
+            $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels/' + $scope.hotel.id, {
+              name: $scope.hotel.name,
+              price: $scope.hotel.price,
+              stars: $scope.hotel.stars,
+              img: $scope.hotel.img,
+              city: $scope.hotel.city,
+              freeRooms: $scope.hotel.freeRooms-1,
+              shortDescription: $scope.hotel.shortDescription,
+              longDescription: $scope.hotel.longDescription,
+              rating: $scope.hotel.rating,
+              opinions: $scope.hotel.opinions,
+              id: $scope.hotel.id
+          }).then(() => {
             alert('you reserved!');
+          })
           })
         }
       }

@@ -37,15 +37,19 @@
         <h2>{{hotel.name}}</h2>
         <img ng-src="{{hotel.img}}">
         <p>{{hotel.longDescription}}</p>
+        <h1 ng-show="hotel.freeRooms>=5">Rooms left: {{hotel.freeRooms}}</h1>
+        <h1 id="warning" ng-show="hotel.freeRooms<5 && hotel.freeRooms>0">Rooms left: {{hotel.freeRooms}}</h1>
+        <h1 id="warning" ng-show="hotel.freeRooms===0">No Rooms Left</h1>
+
         <div class="price-line">
             <div class="left">
                 <h1 ng-show="timeDifference2">Todays price: {{timeDifference2*hotel.price*currencyMultiplier*roomsNum2 | currency: data.selectedCurrency}}
                 </h1>
             </div>
             <div class="right">
-                <button ng-show="logedAc!==''" ng-click="reserveFunc()">Reserve</button>
+                <button ng-show="logedAc!=='' && hotel.freeRooms>0 && firstDate2!=='Check In' && secondDate2!=='Check Out' && firstDate2!==null && secondDate2!==null" ng-click="reserveFunc()">Reserve</button>
                 <a ng-href="#!/login">
-                    <h1 id="orange" ng-show="logedAc===''">Login to be able to reserve hotel</h1>
+                    <h1 id="orange" ng-show="logedAc==='' && hotel.freeRooms>0">Login to be able to reserve hotel</h1>
                 </a>
             </div>
         </div>
