@@ -39,7 +39,7 @@
         <p>{{hotel.longDescription}}</p>
         <div class="price-line">
             <div class="left">
-                <h1 ng-show="timeDifference2">Todays price: {{timeDifference2*hotel.price*roomsNum2 | currency:"PLN"}}
+                <h1 ng-show="timeDifference2">Todays price: {{timeDifference2*hotel.price*currencyMultiplier*roomsNum2 | currency: data.selectedCurrency}}
                 </h1>
             </div>
             <div class="right">

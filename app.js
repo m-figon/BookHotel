@@ -32,6 +32,42 @@ app.config(['$routeProvider', ($routeProvider) => {
 app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   //
   let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  $scope.data = {};
+  $scope.data.selectedCurrency='PLN';
+  $scope.currencyMultiplier = 1;
+  $scope.reserveFunc = (obj) => {
+    $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then((data) => {
+      let users = data.data;
+      let user = null;
+      let newOrders = null;
+      for (let item of users) {
+        if ($scope.logedAc === item.firstName + " " + item.lastName) {
+          user = item;
+          newOrders = item.orders.slice();
+          console.log(obj);
+          newOrders.push(obj);
+          $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + user.id, {
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            password: user.password,
+            orders: newOrders,
+            id: user.id
+          }).then(() => {
+            alert('you reserved!');
+          })
+        }
+      }
+    })
+
+  }
+  $scope.updateCurrency = () =>{
+    switch($scope.data.selectedCurrency){
+      case 'PLN': $scope.currencyMultiplier=1; break;
+      case 'EUR': $scope.currencyMultiplier=4.42; break;
+      case 'USD': $scope.currencyMultiplier=3.74; break;
+    }
+  }
   $scope.timeDifference = null;
   $scope.previousFilterButton;
   $scope.logedAc = "";
@@ -243,6 +279,7 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
   $scope.month4 = $scope.date4.substr(0, 3);
   $scope.year4 = $scope.date4.substr(8, 4);
   $scope.selectArray = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+  
   if ($routeParams.city) {
     $scope.cityFilter = $routeParams.city;
   }

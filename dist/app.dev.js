@@ -31,6 +31,73 @@ app.config(['$routeProvider', function ($routeProvider) {
 app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
   //
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  $scope.data = {};
+  $scope.data.selectedCurrency = 'PLN';
+  $scope.currencyMultiplier = 1;
+
+  $scope.reserveFunc = function (obj) {
+    $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then(function (data) {
+      var users = data.data;
+      var user = null;
+      var newOrders = null;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var item = _step.value;
+
+          if ($scope.logedAc === item.firstName + " " + item.lastName) {
+            user = item;
+            newOrders = item.orders.slice();
+            console.log(obj);
+            newOrders.push(obj);
+            $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + user.id, {
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              password: user.password,
+              orders: newOrders,
+              id: user.id
+            }).then(function () {
+              alert('you reserved!');
+            });
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    });
+  };
+
+  $scope.updateCurrency = function () {
+    switch ($scope.data.selectedCurrency) {
+      case 'PLN':
+        $scope.currencyMultiplier = 1;
+        break;
+
+      case 'EUR':
+        $scope.currencyMultiplier = 4.42;
+        break;
+
+      case 'USD':
+        $scope.currencyMultiplier = 3.74;
+        break;
+    }
+  };
+
   $scope.timeDifference = null;
   $scope.previousFilterButton;
   $scope.logedAc = "";
@@ -214,29 +281,29 @@ app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
   $scope.searchFilter = function () {
     $scope.searchP = false;
     $scope.found = false;
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
 
     try {
-      for (var _iterator = $scope.hotels[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var item = _step.value;
+      for (var _iterator2 = $scope.hotels[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        var item = _step2.value;
 
         if (item.city.toLowerCase() === $scope.data.city.toLowerCase()) {
           $scope.found = true;
         }
       }
     } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
+      _didIteratorError2 = true;
+      _iteratorError2 = err;
     } finally {
       try {
-        if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-          _iterator["return"]();
+        if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+          _iterator2["return"]();
         }
       } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
+        if (_didIteratorError2) {
+          throw _iteratorError2;
         }
       }
     }
@@ -328,15 +395,15 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', function
     console.log($scope.secondDate);
     var first = 0;
     var second = 0;
-    var _iteratorNormalCompletion2 = true;
-    var _didIteratorError2 = false;
-    var _iteratorError2 = undefined;
+    var _iteratorNormalCompletion3 = true;
+    var _didIteratorError3 = false;
+    var _iteratorError3 = undefined;
 
     try {
-      for (var _iterator2 = months.entries()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-        var _step2$value = _slicedToArray(_step2.value, 2),
-            key = _step2$value[0],
-            item = _step2$value[1];
+      for (var _iterator3 = months.entries()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        var _step3$value = _slicedToArray(_step3.value, 2),
+            key = _step3$value[0],
+            item = _step3$value[1];
 
         if (item === $scope.secondDate.substr(0, 3)) {
           second = key;
@@ -347,16 +414,16 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', function
         }
       }
     } catch (err) {
-      _didIteratorError2 = true;
-      _iteratorError2 = err;
+      _didIteratorError3 = true;
+      _iteratorError3 = err;
     } finally {
       try {
-        if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-          _iterator2["return"]();
+        if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+          _iterator3["return"]();
         }
       } finally {
-        if (_didIteratorError2) {
-          throw _iteratorError2;
+        if (_didIteratorError3) {
+          throw _iteratorError3;
         }
       }
     }
@@ -507,29 +574,29 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
       }).then(function () {
         $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels').then(function (data) {
           var hotels = data.data;
-          var _iteratorNormalCompletion3 = true;
-          var _didIteratorError3 = false;
-          var _iteratorError3 = undefined;
+          var _iteratorNormalCompletion4 = true;
+          var _didIteratorError4 = false;
+          var _iteratorError4 = undefined;
 
           try {
-            for (var _iterator3 = hotels[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-              var item = _step3.value;
+            for (var _iterator4 = hotels[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+              var item = _step4.value;
 
               if (item.name === $routeParams.details) {
                 $scope.hotel = item;
               }
             }
           } catch (err) {
-            _didIteratorError3 = true;
-            _iteratorError3 = err;
+            _didIteratorError4 = true;
+            _iteratorError4 = err;
           } finally {
             try {
-              if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-                _iterator3["return"]();
+              if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
+                _iterator4["return"]();
               }
             } finally {
-              if (_didIteratorError3) {
-                throw _iteratorError3;
+              if (_didIteratorError4) {
+                throw _iteratorError4;
               }
             }
           }
@@ -544,29 +611,29 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
     console.log($routeParams.details);
     $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels').then(function (data) {
       var hotels = data.data;
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
 
       try {
-        for (var _iterator4 = hotels[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-          var item = _step4.value;
+        for (var _iterator5 = hotels[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var item = _step5.value;
 
           if (item.name === $routeParams.details) {
             $scope.hotel = item;
           }
         }
       } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
-            _iterator4["return"]();
+          if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
+            _iterator5["return"]();
           }
         } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
+          if (_didIteratorError5) {
+            throw _iteratorError5;
           }
         }
       }
@@ -599,15 +666,15 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
     console.log($scope.secondDate2);
     var first = 0;
     var second = 0;
-    var _iteratorNormalCompletion5 = true;
-    var _didIteratorError5 = false;
-    var _iteratorError5 = undefined;
+    var _iteratorNormalCompletion6 = true;
+    var _didIteratorError6 = false;
+    var _iteratorError6 = undefined;
 
     try {
-      for (var _iterator5 = months.entries()[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-        var _step5$value = _slicedToArray(_step5.value, 2),
-            key = _step5$value[0],
-            item = _step5$value[1];
+      for (var _iterator6 = months.entries()[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+        var _step6$value = _slicedToArray(_step6.value, 2),
+            key = _step6$value[0],
+            item = _step6$value[1];
 
         if (item === $scope.secondDate2.substr(0, 3)) {
           second = key;
@@ -618,16 +685,16 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
         }
       }
     } catch (err) {
-      _didIteratorError5 = true;
-      _iteratorError5 = err;
+      _didIteratorError6 = true;
+      _iteratorError6 = err;
     } finally {
       try {
-        if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
-          _iterator5["return"]();
+        if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
+          _iterator6["return"]();
         }
       } finally {
-        if (_didIteratorError5) {
-          throw _iteratorError5;
+        if (_didIteratorError6) {
+          throw _iteratorError6;
         }
       }
     }
@@ -647,13 +714,13 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
       var users = data.data;
       var user = null;
       var newOrders = null;
-      var _iteratorNormalCompletion6 = true;
-      var _didIteratorError6 = false;
-      var _iteratorError6 = undefined;
+      var _iteratorNormalCompletion7 = true;
+      var _didIteratorError7 = false;
+      var _iteratorError7 = undefined;
 
       try {
-        for (var _iterator6 = users[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-          var _item = _step6.value;
+        for (var _iterator7 = users[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+          var _item = _step7.value;
 
           if ($scope.logedAc === _item.firstName + " " + _item.lastName) {
             user = _item;
@@ -673,16 +740,16 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
           }
         }
       } catch (err) {
-        _didIteratorError6 = true;
-        _iteratorError6 = err;
+        _didIteratorError7 = true;
+        _iteratorError7 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
-            _iterator6["return"]();
+          if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
+            _iterator7["return"]();
           }
         } finally {
-          if (_didIteratorError6) {
-            throw _iteratorError6;
+          if (_didIteratorError7) {
+            throw _iteratorError7;
           }
         }
       }
@@ -708,13 +775,13 @@ app.controller('login-controller', ['$scope', '$http', '$routeParams', '$locatio
     $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then(function (data) {
       var users = data.data;
       var correct = false;
-      var _iteratorNormalCompletion7 = true;
-      var _didIteratorError7 = false;
-      var _iteratorError7 = undefined;
+      var _iteratorNormalCompletion8 = true;
+      var _didIteratorError8 = false;
+      var _iteratorError8 = undefined;
 
       try {
-        for (var _iterator7 = users[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-          var item = _step7.value;
+        for (var _iterator8 = users[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+          var item = _step8.value;
 
           if (item.email === $scope.email && item.password === $scope.password) {
             correct = true;
@@ -729,16 +796,16 @@ app.controller('login-controller', ['$scope', '$http', '$routeParams', '$locatio
           }
         }
       } catch (err) {
-        _didIteratorError7 = true;
-        _iteratorError7 = err;
+        _didIteratorError8 = true;
+        _iteratorError8 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
-            _iterator7["return"]();
+          if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
+            _iterator8["return"]();
           }
         } finally {
-          if (_didIteratorError7) {
-            throw _iteratorError7;
+          if (_didIteratorError8) {
+            throw _iteratorError8;
           }
         }
       }

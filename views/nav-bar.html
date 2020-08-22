@@ -7,7 +7,11 @@
             </a>
         </div>
         <div class="right">
-            <h1>zł</h1>
+            <select ng-model="data.selectedCurrency" ng-change="updateCurrency()" ng-init="data.selectedCurrency='PLN'">
+                <option value="PLN">PLN</option>
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+            </select>
             <a ng-href="#!/login">
                 <button ng-show="logedAc===''">Login</button>
             </a>
