@@ -7,10 +7,10 @@
       <input ng-click="showCalendar()" ng-model="checkInOut">
       <h1  ng-click="showRoomsSettings()">{{adults}} adults - {{children}} children - {{rooms}} room</h1>
       <button ng-click="displayMessage()" ng-show="data.city==='' || data.city==='What is your destination?'">Search</button>
-      <a ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}">
+      <a ng-click="hideCalendar()" ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}">
         <button ng-show="data.city!=='' && data.city!=='What is your destination?' && checkIn==='Check In' && checkOut==='Check Out'">Search</button>
       </a>
-      <a ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}/{{checkIn}}-{{checkOut}}">
+      <a ng-click="hideCalendar()" ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}/{{checkIn}}-{{checkOut}}">
         <button ng-show="data.city!=='' && data.city!=='What is your destination?' && checkIn!=='Check In' && checkOut!=='Check Out'">Search</button>
       </a>
       <button ng-show="data.city!=='' && data.city!=='What is your destination?' && ((checkIn!=='Check In' && checkOut==='Check Out')|| (checkOut!=='Check Out' && checkIn==='Check In'))">Search</button>

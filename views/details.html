@@ -27,7 +27,8 @@
             <button
                 ng-show="firstDate2==='Check In' || secondDate2==='Check Out' || firstDate2==='' || secondDate2===''">SEARCH</button>
         </a>
-        <a ng-href="#!/search/{{cityFilter2}}/{{adultsNum2}}-{{childrenNum2}}-{{roomsNum2}}/{{firstDate2}}-{{secondDate2}}">
+        <a
+            ng-href="#!/search/{{cityFilter2}}/{{adultsNum2}}-{{childrenNum2}}-{{roomsNum2}}/{{firstDate2}}-{{secondDate2}}">
             <button
                 ng-show="firstDate2!=='Check In' && secondDate2!=='Check Out' && firstDate2!=='' && secondDate2!==''">SEARCH</button>
         </a>
@@ -38,12 +39,14 @@
         <p>{{hotel.longDescription}}</p>
         <div class="price-line">
             <div class="left">
-                <h1 ng-show="timeDifference2">Todays price: {{timeDifference2*hotel.price*roomsNum2 | currency:"PLN"}}</h1>
-
+                <h1 ng-show="timeDifference2">Todays price: {{timeDifference2*hotel.price*roomsNum2 | currency:"PLN"}}
+                </h1>
             </div>
             <div class="right">
                 <button ng-show="logedAc!==''" ng-click="reserveFunc()">Reserve</button>
-                <a ng-href="#!/login"><h1 id="orange" ng-show="logedAc===''">To reserve you have to be logged in</h1></a>
+                <a ng-href="#!/login">
+                    <h1 id="orange" ng-show="logedAc===''">Login to be able to reserve hotel</h1>
+                </a>
             </div>
         </div>
 
@@ -60,5 +63,24 @@
                 </div>
             </div>
         </div>
+        <div class="opinion" ng-show="logedAc!==''">
+            <div class="left">
+                <h1>{{logedAc}}</h1>
+            </div>
+            <div class="middle">
+                <input ng-focus="opinionFocusFunc()" ng-blur="opinionBlurFunc()" ng-model="opinion">
+            </div>
+            <div class="right">
+                <select ng-model="rating">
+                    <option value="none">0-10</option>
+                    <option ng-repeat="number in opinionNumbers" value="{{number}}">{{number}}</option>
+                </select>
+                <button ng-click="addOpinion()">Add opinion</button>
+            </div>
+        </div>
+        <h1 ng-show="wrongOpinion" id="warning">To add opinion opinion content must be entered and rating must be set</h1>
+        <a  ng-href="#!/login">
+            <h1 id="orange" ng-show="logedAc===''">Login to be able to add opinion</h1>
+        </a>
     </div>
 </div>

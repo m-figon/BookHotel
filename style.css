@@ -479,7 +479,7 @@ a {
 }
 .opinion {
   width: 50rem;
-  height: 2rem;
+  height: auto;
   display: flex;
   align-items: center;
   border: 1px solid gray;
@@ -496,6 +496,33 @@ a {
   display: flex;
   justify-content: center;
   border-right: 1px solid gray;
+}
+.opinion .right button{
+  width: 5rem;
+  background-color: #003580;;
+  height:2.5rem;
+  font-size:1rem;
+  color:white;
+  border: 1px solid gray;
+  border-radius: 2px;
+  font-weight: 700;
+  border-radius: 5px;
+}
+.opinion .right select{
+  width:5.5rem;
+  padding: 0 1rem;
+  height:2rem;
+  margin:1rem 0;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+.opinion .middle input{
+  width:20rem;
+  padding: 0 1rem;
+  height:2rem;
+  margin:1rem 0;
+  border: 1px solid gray;
+  border-radius: 4px;
 }
 .opinion .left h1{
   color: #003580;
@@ -521,6 +548,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0.5rem 0;
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   border: 0;
 }

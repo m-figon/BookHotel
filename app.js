@@ -44,7 +44,7 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   $scope.month1 = $scope.date1.substr(0, 3);
   $scope.month2 = $scope.date2.substr(0, 3);
   $scope.year2 = $scope.date2.substr(8, 4);
-  $scope.order="";
+  $scope.order = "";
   let previousTarget1 = null;
   let previousTarget2 = null;
   let chosenDates = 0;
@@ -133,6 +133,9 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   $scope.showCalendar = () => {
     $scope.calendarVisible = !$scope.calendarVisible;
   }
+  $scope.hideCalendar = () => {
+    $scope.calendarVisible = false;
+  }
   //
   $scope.calendarVisible = false;
   $scope.roomSettingsVisible = false;
@@ -201,22 +204,22 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
     $scope.hotels = data.data;
     console.log($scope.hotels);
   })
-  $scope.filterFunc = (e,value) =>{
-    e.target.style.backgroundColor="green";
-    e.target.style.color="white";
-    switch(value){
-      case 1: $scope.order="-price"; break;
-      case 2: $scope.order="price"; break;
-      case 3: $scope.order="-rating"; break;
-      case 4: $scope.order="rating"; break;
-      case 5: $scope.order="stars"; break;
-      case 6: $scope.order="-stars"; break;
+  $scope.filterFunc = (e, value) => {
+    e.target.style.backgroundColor = "green";
+    e.target.style.color = "white";
+    switch (value) {
+      case 1: $scope.order = "-price"; break;
+      case 2: $scope.order = "price"; break;
+      case 3: $scope.order = "-rating"; break;
+      case 4: $scope.order = "rating"; break;
+      case 5: $scope.order = "stars"; break;
+      case 6: $scope.order = "-stars"; break;
     }
-    if($scope.previousFilterButton){
-      $scope.previousFilterButton.style.backgroundColor="white";
-      $scope.previousFilterButton.style.color="black";
+    if ($scope.previousFilterButton) {
+      $scope.previousFilterButton.style.backgroundColor = "white";
+      $scope.previousFilterButton.style.color = "black";
     }
-    $scope.previousFilterButton=e.target;
+    $scope.previousFilterButton = e.target;
   }
 }])
 
@@ -229,7 +232,7 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
   $scope.firstDate = "Check In";
   $scope.secondDate = "Check Out";
   $scope.checkInOut2;
-  let chosenDates2=0;
+  let chosenDates2 = 0;
   let previousTarget1 = null;
   let previousTarget2 = null;
   $scope.date3 = moment().format('ll');
@@ -347,13 +350,68 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
     $scope.checkInOut2 = $scope.firstDate + '-' + $scope.secondDate;
     console.log($scope.checkInOut2);
   }
-  
+
 }])
 
 app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope, $http, $routeParams) => {
   $scope.hotel;
   $scope.timeDifference2;
   let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  $scope.opinion = "Enter Opinion";
+  $scope.rating = "none";
+  $scope.wrongOpinion=false;
+  $scope.opinionNumbers = [];
+  for (let i = 0; i < 21; i++) {
+    $scope.opinionNumbers.push(i * 0.5);
+  }
+  console.log($scope.opinionNumbers);
+  $scope.opinionFocusFunc = (e) => {
+    if ($scope.opinion === "Enter Opinion") {
+      $scope.opinion = "";
+    }
+  }
+  $scope.opinionBlurFunc = (e) => {
+    if ($scope.opinion === "") {
+      $scope.opinion = "Enter Opinion";
+    }
+  }
+  $scope.addOpinion = () => {
+    $scope.wrongOpinion=false;
+    if ($scope.opinion !== "Enter Opinion" && $scope.rating !== "none") {
+      let tmpOpinions = $scope.hotel.opinions.slice();
+      tmpOpinions.push({
+        rating: $scope.rating,
+        opinion: $scope.opinion,
+        author: $scope.logedAc
+      })
+      $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels/' + $scope.hotel.id, {
+        name: $scope.hotel.name,
+        price: $scope.hotel.price,
+        stars: $scope.hotel.stars,
+        img: $scope.hotel.img,
+        city: $scope.hotel.city,
+        freeRooms: $scope.hotel.freeRooms,
+        shortDescription: $scope.hotel.shortDescription,
+        longDescription: $scope.hotel.longDescription,
+        rating: $scope.hotel.rating,
+        opinions: tmpOpinions,
+        id: $scope.hotel.id
+
+      }).then(() => {
+        $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels').then((data) => {
+          let hotels = data.data;
+          for (let item of hotels) {
+            if (item.name === $routeParams.details) {
+              $scope.hotel = item;
+            }
+          }
+        })
+      })
+    }else{
+      $scope.wrongOpinion=true;
+    }
+
+  }
   if ($routeParams.details) {
     console.log($routeParams.details);
     $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels').then((data) => {
@@ -404,31 +462,31 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
     }
     console.log($scope.timeDifference2);
   }
-  $scope.reserveFunc=()=>{
+  $scope.reserveFunc = () => {
     $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then((data) => {
-    let users = data.data;
-    let user=null;
-    let newOrders= null;
-    for(let item of users){
-      if($scope.logedAc===item.firstName+" "+item.lastName){
-        user=item;
-        newOrders=item.orders.slice();
-        console.log($scope.hotel);
-        newOrders.push($scope.hotel);
-        $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + user.id, {
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        password: user.password,
-        orders: newOrders,
-        id: user.id
-      }).then(() => {
-        alert('you reserved!');
-      })
+      let users = data.data;
+      let user = null;
+      let newOrders = null;
+      for (let item of users) {
+        if ($scope.logedAc === item.firstName + " " + item.lastName) {
+          user = item;
+          newOrders = item.orders.slice();
+          console.log($scope.hotel);
+          newOrders.push($scope.hotel);
+          $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + user.id, {
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            password: user.password,
+            orders: newOrders,
+            id: user.id
+          }).then(() => {
+            alert('you reserved!');
+          })
+        }
       }
-    }
-  })
-    
+    })
+
   }
 }])
 
@@ -455,7 +513,7 @@ app.controller('login-controller', ['$scope', '$http', '$routeParams', '$locatio
         if (item.email === $scope.email && item.password === $scope.password) {
           correct = true;
           $scope.loginP = false;
-          $scope.$parent.logedAcChange(item.firstName+" "+item.lastName);
+          $scope.$parent.logedAcChange(item.firstName + " " + item.lastName);
           alert('you logged');
           $scope.email = "";
           $scope.loginP = false;
@@ -515,22 +573,22 @@ app.controller('register-controller', ['$scope', '$http', '$routeParams', '$loca
         $scope.part = '3';
       }
     } else if (value === '4') {
-      let correctNames=true;
+      let correctNames = true;
       if (!($scope.firstName.match(/^[a-zA-Z]{4,10}$/) === null)) {
         $scope.firstNameP = false;
-        
+
       } else {
         $scope.firstNameP = true;
-        correctNames=false;
+        correctNames = false;
       }
       if (!($scope.lastName.match(/^[a-zA-Z]{4,10}$/) === null)) {
         $scope.lastNameP = false;
-        
+
       } else {
         $scope.lastNameP = true;
-        correctNames=false;
+        correctNames = false;
       }
-      if(correctNames){
+      if (correctNames) {
         $http.post('https://rocky-citadel-32862.herokuapp.com/BookHotel/users', {
           firstName: $scope.firstName,
           lastName: $scope.lastName,
