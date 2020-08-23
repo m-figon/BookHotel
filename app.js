@@ -11,6 +11,9 @@ app.config(['$routeProvider', ($routeProvider) => {
     .when('/register', {
       templateUrl: "views/register.html"
     })
+    .when('/orders', {
+      templateUrl: "views/orders.html"
+    })
     .when('/search/:city/:type/:date', {
       templateUrl: "views/search.html"
     })
@@ -33,53 +36,13 @@ app.controller('app-controller', ['$scope', '$http', ($scope, $http) => {
   //
   let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   $scope.data = {};
-  $scope.data.selectedCurrency='PLN';
+  $scope.data.selectedCurrency = 'PLN';
   $scope.currencyMultiplier = 1;
-  $scope.reserveFunc = (obj) => {
-    $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then((data) => {
-      let users = data.data;
-      let user = null;
-      let newOrders = null;
-      for (let item of users) {
-        if ($scope.logedAc === item.firstName + " " + item.lastName) {
-          user = item;
-          newOrders = item.orders.slice();
-          console.log(obj);
-          newOrders.push(obj);
-          $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + user.id, {
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            password: user.password,
-            orders: newOrders,
-            id: user.id
-          }).then(() => {
-            $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels/' + obj.id, {
-              name: obj.name,
-              price: obj.price,
-              stars: obj.stars,
-              img: obj.img,
-              city: obj.city,
-              freeRooms: obj.freeRooms-1,
-              shortDescription: obj.shortDescription,
-              longDescription: obj.longDescription,
-              rating: obj.rating,
-              opinions: obj.opinions,
-              id: obj.id
-          }).then(() => {
-            alert('you reserved!');
-          })
-          })
-        }
-      }
-    })
-
-  }
-  $scope.updateCurrency = () =>{
-    switch($scope.data.selectedCurrency){
-      case 'PLN': $scope.currencyMultiplier=1; break;
-      case 'EUR': $scope.currencyMultiplier=4.42; break;
-      case 'USD': $scope.currencyMultiplier=3.74; break;
+  $scope.updateCurrency = () => {
+    switch ($scope.data.selectedCurrency) {
+      case 'PLN': $scope.currencyMultiplier = 1; break;
+      case 'EUR': $scope.currencyMultiplier = (1/4.42); break;
+      case 'USD': $scope.currencyMultiplier = (1/3.74); break;
     }
   }
   $scope.timeDifference = null;
@@ -293,7 +256,7 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
   $scope.month4 = $scope.date4.substr(0, 3);
   $scope.year4 = $scope.date4.substr(8, 4);
   $scope.selectArray = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
-  
+
   if ($routeParams.city) {
     $scope.cityFilter = $routeParams.city;
   }
@@ -401,6 +364,56 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', ($scope,
     $scope.checkInOut2 = $scope.firstDate + '-' + $scope.secondDate;
     console.log($scope.checkInOut2);
   }
+  $scope.reserveFunc = (obj) => {
+    $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then((data) => {
+      let users = data.data;
+      let user = null;
+      let newOrders = null;
+      for (let item of users) {
+        if ($scope.logedAc === item.firstName + " " + item.lastName) {
+          user = item;
+          newOrders = item.orders.slice();
+          console.log(obj);
+          newOrders.push({
+            name: obj.name,
+            city: obj.city,
+            img: obj.img,
+            rating: obj.rating,
+            totalPrice: (Math.round(($scope.timeDifference*obj.price*$scope.currencyMultiplier*$scope.roomsNum)*100)/100)+$scope.data.selectedCurrency,
+            rooms: $scope.roomsNum,
+            adults: $scope.adultsNum,
+            children: $scope.childrenNum,
+            date: $scope.firstDate+"-"+$scope.secondDate
+          });
+          $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + user.id, {
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            password: user.password,
+            orders: newOrders,
+            id: user.id
+          }).then(() => {
+            $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels/' + obj.id, {
+              name: obj.name,
+              price: obj.price,
+              stars: obj.stars,
+              img: obj.img,
+              city: obj.city,
+              freeRooms: obj.freeRooms - 1,
+              shortDescription: obj.shortDescription,
+              longDescription: obj.longDescription,
+              rating: obj.rating,
+              opinions: obj.opinions,
+              id: obj.id
+            }).then(() => {
+              alert('you reserved!');
+            })
+          })
+        }
+      }
+    })
+
+  }
 
 }])
 
@@ -410,7 +423,7 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
   let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   $scope.opinion = "Enter Opinion";
   $scope.rating = "none";
-  $scope.wrongOpinion=false;
+  $scope.wrongOpinion = false;
   $scope.opinionNumbers = [];
   for (let i = 0; i < 21; i++) {
     $scope.opinionNumbers.push(i * 0.5);
@@ -427,7 +440,7 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
     }
   }
   $scope.addOpinion = () => {
-    $scope.wrongOpinion=false;
+    $scope.wrongOpinion = false;
     if ($scope.opinion !== "Enter Opinion" && $scope.rating !== "none") {
       let tmpOpinions = $scope.hotel.opinions.slice();
       tmpOpinions.push({
@@ -458,8 +471,8 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
           }
         })
       })
-    }else{
-      $scope.wrongOpinion=true;
+    } else {
+      $scope.wrongOpinion = true;
     }
 
   }
@@ -525,7 +538,18 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
           user = item;
           newOrders = item.orders.slice();
           console.log($scope.hotel);
-          newOrders.push($scope.hotel);
+          console.log($scope.timeDifference2+","+$scope.hotel.price+","+$scope.currencyMultiplier+","+$scope.roomsNum2+","+$scope.data.selectedCurrency)
+          newOrders.push({
+            name: $scope.hotel.name,
+            city: $scope.hotel.city,
+            img: $scope.hotel.img,
+            rating: $scope.hotel.rating,
+            totalPrice: (Math.round(($scope.timeDifference2*$scope.hotel.price*$scope.currencyMultiplier*$scope.roomsNum2) * 100) / 100)+$scope.data.selectedCurrency,
+            rooms: $scope.roomsNum2,
+            adults: $scope.adultsNum2,
+            children: $scope.childrenNum2,
+            date: $scope.firstDate2+"-"+$scope.secondDate2
+          });
           $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + user.id, {
             email: user.email,
             firstName: user.firstName,
@@ -540,15 +564,15 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', ($scope
               stars: $scope.hotel.stars,
               img: $scope.hotel.img,
               city: $scope.hotel.city,
-              freeRooms: $scope.hotel.freeRooms-1,
+              freeRooms: $scope.hotel.freeRooms - 1,
               shortDescription: $scope.hotel.shortDescription,
               longDescription: $scope.hotel.longDescription,
               rating: $scope.hotel.rating,
               opinions: $scope.hotel.opinions,
               id: $scope.hotel.id
-          }).then(() => {
-            alert('you reserved!');
-          })
+            }).then(() => {
+              alert('you reserved!');
+            })
           })
         }
       }
@@ -594,6 +618,21 @@ app.controller('login-controller', ['$scope', '$http', '$routeParams', '$locatio
       }
     })
   }
+}])
+
+app.controller('orders-controller', ['$scope', '$http', '$routeParams', '$location', ($scope, $http, $routeParams, $location) => {
+  $scope.logedUser=null;
+  $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then((data) => {
+      let users = data.data;
+      for (let item of users) {
+        if ($scope.logedAc === item.firstName + " " + item.lastName) {
+          $scope.logedUser = item;
+          console.log($scope.logedUser);
+          console.log($scope.logedUser.orders);
+
+        }
+      }
+    })
 }])
 
 app.controller('register-controller', ['$scope', '$http', '$routeParams', '$location', ($scope, $http, $routeParams, $location) => {

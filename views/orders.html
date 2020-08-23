@@ -1,0 +1,73 @@
+<div ng-controller="orders-controller">
+<div class="orders" ng-show="logedAc!=='' && logedUser.orders.length>0">
+    <h2>Your orders</h2>
+    <div class="order-items" id="title-row">
+        <div class="order-item" >
+            Image
+        </div>
+        <div class="order-item" >
+            Name
+        </div>
+        <div class="order-item" >
+            City
+        </div>
+        <div class="order-item" >
+            Date
+        </div>
+        <div class="order-item" >
+            Rating
+        </div>
+        <div class="order-item" >
+            Total Price
+        </div>
+        <div class="order-item" >
+            Rooms
+        </div>
+        <div class="order-item" >
+            Adults
+        </div>
+        <div class="order-item" >
+            Children
+        </div>
+    </div>
+    <div class="orders-display">
+        <div class="order-items" ng-repeat="order in logedUser.orders">
+            <div class="order-item" >
+                <img src="{{order.img}}">
+            </div>
+            <div class="order-item" >
+                <h1>{{order.name}}</h1>
+            </div>
+            <div class="order-item" >
+                <h1>{{order.city}}</h1>
+            </div>
+            <div class="order-item" >
+                <h1>{{order.date}}</h1>
+            </div>
+            <div class="order-item" >
+                <h1>{{order.rating}}</h1>
+            </div>
+            <div class="order-item" >
+                <h1>{{order.totalPrice}}</h1>
+            </div>
+            <div class="order-item" >
+                <h1>{{order.rooms}}</h1>
+            </div>
+            <div class="order-item" >
+                <h1>{{order.adults}}</h1>
+            </div>
+            <div class="order-item" >
+                <h1>{{order.children}}</h1>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+<div class="orders" ng-show="logedAc!=='' && logedUser.orders.length===0">
+        <h1>There are not orders yet</h1>
+</div>
+<div class="orders" ng-show="logedAc===''">
+    <h1>You are not logged</h1>
+</div>
+</div>

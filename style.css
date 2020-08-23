@@ -700,3 +700,43 @@ box-shadow: 0px 0px 10px 0px #003580;
   font-weight: 700;
   margin-bottom: 1rem;
 }
+.orders{
+  width: 100vw;
+  height: calc(100vh - 3rem);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgb(240, 240, 240);
+  flex-direction: column;
+}
+.orders-display{
+  height:auto;
+  display: flex;
+  flex-direction: column;
+}
+.order-items{
+  width:60rem;
+  height:3rem;
+  display: flex;
+  align-items: center;
+}
+#title-row{
+  background-color: #003580;
+  color:white;
+  font-weight: 700;
+}
+.order-item{
+  width:10rem;
+  height: 3rem;
+  border: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.order-item img{
+  width:4rem;
+  height:2.5rem;
+}
+.order-item h1{
+  font-size: 1.0rem;
+}
