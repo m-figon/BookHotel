@@ -1,0 +1,91 @@
+@import '../global';
+
+.orders {
+    width: 100vw;
+    height: calc(100vh - 3rem);
+    @include flex(flex-start,center,row);
+    background-color: rgb(240, 240, 240);
+    flex-direction: column;
+}
+.orders-display {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+#orders-sign{
+    width:80rem;
+}
+.order-items {
+    width: 80rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid $border-color;
+    border-right: 1px solid $border-color;
+}
+.title-order-items {
+    width: 80rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    background-color: $main-color;
+    color: white;
+    font-weight: 700;
+}
+.order-item,
+.smaller-order-item,
+.bigger-order-item {
+    width: 10rem;
+    height: 100%;
+    border: 1px solid $border-color;
+    border-left: 0;
+    border-right: 0;
+    @include flex();
+}
+.smaller-order-item {
+    width: 7rem;
+    height: 100%;
+    button {
+        clip-path: polygon(
+            20% 0%,
+            0% 20%,
+            30% 50%,
+            0% 80%,
+            20% 100%,
+            50% 70%,
+            80% 100%,
+            100% 80%,
+            70% 50%,
+            100% 20%,
+            80% 0%,
+            50% 30%
+        );
+        border: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: $second-color;
+        &:hover {
+            cursor: pointer;
+            background-color: $second-color-hover;
+        }
+    }
+}
+.bigger-order-item {
+    width: 25rem;
+    height: 100%;
+}
+.order-item,
+.smaller-order-item,
+.bigger-order-item {
+    img {
+        width: 4rem;
+        height: 2.5rem;
+    }
+}
+.order-item,
+.smaller-order-item,
+.bigger-order-item {
+    h1 {
+        font-size: 1rem;
+    }
+}

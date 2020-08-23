@@ -1,0 +1,52 @@
+@import '../global';
+
+.room-settings {
+    margin-top: 1rem;
+    width: 20rem;
+    height: 10rem;
+    background-color: white;
+    @include flex(flex-start,center,column);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgb(206, 206, 206);
+}
+.room-settings-line {
+    display: flex;
+    height: 3.3rem;
+    width: 100%;
+}
+.room-settings-line-left,
+.room-settings-line-right  {
+    @include flex(flex-start,center,row);
+    padding-left: 1rem;
+}
+.room-settings-line-left {
+    width: 50%;
+    height: 100%;
+}
+.room-settings-line-right {
+    width: 50%;
+    height: 100%;
+    button {
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid $main-color;
+        background-color: white;
+        &:hover {
+            cursor: pointer;
+            color: white;
+            background-color: $main-color;
+        }
+    }
+    h1 {
+        margin: 0;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+    }
+}

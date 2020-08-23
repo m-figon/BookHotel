@@ -1,0 +1,117 @@
+@import '../global';
+
+.ad {
+    display: grid;
+    grid-template-areas:
+        "img1 img1 img1 img2 img2 img2"
+        "img3 img3 img4 img4 img5 img5";
+}
+.img1 {
+    grid-area: img1;
+}
+.img2 {
+    grid-area: img2;
+}
+.img3 {
+    grid-area: img3;
+}
+.img4 {
+    grid-area: img4;
+}
+.img5 {
+    grid-area: img5;
+}
+.img1,
+.img2,
+.img3,
+.img4,
+.img5 {
+    padding: 1rem 1rem 1rem 0rem;
+    width: 100%;
+    height: 100%;
+}
+.img1,
+.img2,
+.img3,
+.img4,
+.img5 {
+    img {
+        width: 99%;
+        height: 99%;
+    }
+}
+.home-content {
+    h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    h1 {
+        margin: 0;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    p {
+        padding: 1rem;
+        width: 17rem;
+        height: 0.5rem;
+        border-radius: 3px;
+        @include flex();
+        background-color: #8b0000;
+        color: white;
+    }
+}
+.search-bar {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    input {
+        width: 30rem;
+        height: 100%;
+        padding: 0 1rem;
+        border: 3px solid $second-color;
+        font-weight: 700;
+        border-radius: 2px;
+    }
+    h1 {
+        width: 30rem;
+        height: 100%;
+        @include flex();
+        background-color: white;
+        padding: 0 1rem;
+        border: 3px solid $second-color;
+        font-weight: 700;
+        border-radius: 2px;
+        margin: 0;
+    }
+    button {
+        margin: 0;
+        padding: 0 1rem;
+        height: 3.4rem;
+        border-radius: 2px;
+        @include flex();
+        background-color: $main-color;
+        color: white;
+        border: 3px solid $second-color;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+.img1,
+.img2,
+.img3,
+.img4,
+.img5 {
+    h1 {
+        position: relative;
+        width: auto;
+        z-index: 3;
+        padding: 1rem;
+        font-size: 1.2rem;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        margin-bottom: -3.5rem;
+    }
+}

@@ -1,0 +1,11 @@
+$main-color: #003580;
+$main-color-hover: rgb(0, 174, 255);
+$second-color: rgb(255, 174, 0);
+$second-color-hover: rgb(255, 208, 0);
+$border-color: rgb(206, 206, 206);
+@mixin flex($justify-content: center, $align-items: center, $flex-direction: row) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+    flex-direction: $flex-direction;
+}

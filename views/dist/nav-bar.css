@@ -1,0 +1,66 @@
+.nav-bar {
+  width: 100vw;
+  height: 3rem;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: #003580;
+  color: white;
+}
+
+#aqua {
+  color: #00aeff;
+  margin-right: 0.5rem;
+}
+
+.nav-bar-content {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+.nav-bar-content a {
+  display: flex;
+  color: white;
+  text-decoration: none;
+}
+.nav-bar-content .left,
+.nav-bar-content .right {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.nav-bar-content .left {
+  justify-content: flex-start;
+}
+.nav-bar-content .right {
+  justify-content: flex-end;
+}
+.nav-bar-content .right select {
+  border: 2px solid #ffae00;
+  background-color: #00aeff;
+  color: white;
+  border-radius: 3px;
+}
+.nav-bar-content .right h1 {
+  margin: 0 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.nav-bar-content .right button {
+  margin: 0 1rem;
+  padding: 0.2rem 1rem;
+  border-radius: 2px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: white;
+  color: #003580;
+  font-weight: 700;
+  border: 2px solid white;
+}
+.nav-bar-content .right button:hover {
+  cursor: pointer;
+}

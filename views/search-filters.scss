@@ -1,0 +1,58 @@
+@import '../global';
+
+.search-filters {
+    width: 16rem;
+    height: 25rem;
+    background-color: $second-color;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-right: 2rem;
+    h2 {
+        font-size: 1.5rem;
+        margin: 0;
+    }
+    h1 {
+        font-size: 1rem;
+        margin: 0.2rem 0;
+    }
+    input,
+    select {
+        width: 14rem;
+        height: 2rem;
+        padding: 0 1rem;
+        border: 1px solid $border-color;
+        border-radius: 3px;
+        margin-bottom: 1rem;
+    }
+    input {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    select {
+        width: auto;
+    }
+    button {
+        width: 5rem;
+        height: 2.5rem;
+        border-radius: 5px;
+        @include flex();
+        color: white;
+        border: 1px solid $main-color;
+        background-color: $main-color;
+        &:hover {
+            cursor: pointer;
+            background-color: $main-color-hover;
+        }
+    }
+}
+.search-line {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    select {
+        width: 12rem;
+        margin-right: 1rem;
+    }
+}

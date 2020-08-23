@@ -1,0 +1,138 @@
+.details-content h2 {
+  font-size: 1.5rem;
+  color: #003580;
+  margin: 0;
+}
+.details-content h1 {
+  font-size: 1rem;
+  margin: 0;
+}
+.details-content img {
+  width: 50rem;
+  height: 35rem;
+  margin: 0;
+}
+.details-content p {
+  width: 50rem;
+  font-size: 0.8rem;
+}
+
+.opinions {
+  display: flex;
+  flex-direction: column;
+}
+
+.opinion {
+  width: 50rem;
+  height: auto;
+  display: flex;
+  align-items: center;
+  border: 1px solid #cecece;
+  background-color: #f0f0f0;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+.opinion h1 {
+  font-size: 1rem;
+}
+.opinion .left {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  border-right: 1px solid #cecece;
+}
+.opinion .left h1 {
+  color: #003580;
+  font-weight: 700;
+}
+.opinion .right {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+.opinion .right button {
+  width: 5rem;
+  background-color: #003580;
+  height: 2.5rem;
+  font-size: 1rem;
+  color: white;
+  border: 1px solid #cecece;
+  border-radius: 2px;
+  font-weight: 700;
+  border-radius: 5px;
+}
+.opinion .right select {
+  width: 5.5rem;
+  padding: 0 1rem;
+  height: 2rem;
+  margin: 1rem 0;
+  border: 1px solid #cecece;
+  border-radius: 4px;
+}
+.opinion .right h1 {
+  background-color: #003580;
+  color: white;
+  font-weight: 700;
+  width: 2rem;
+  height: 1.5rem;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 0.5rem 0;
+  border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+  border: 0;
+}
+.opinion .middle {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 1rem;
+}
+.opinion .middle input {
+  width: 20rem;
+  padding: 0 1rem;
+  height: 2rem;
+  margin: 1rem 0;
+  border: 1px solid #cecece;
+  border-radius: 4px;
+}
+
+.price-line {
+  display: flex;
+  align-items: center;
+  width: 50rem;
+  margin: 1rem 0;
+}
+.price-line .left,
+.price-line .right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+.price-line .right {
+  justify-content: flex-end;
+}
+.price-line .right button {
+  width: 5rem;
+  height: 2rem;
+  border-radius: 5px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: row;
+  color: white;
+  border: 1px solid #cecece;
+  background-color: #ffae00;
+}
+.price-line .right button:hover {
+  background-color: #ffd000;
+}
+.price-line .left {
+  justify-content: flex-start;
+}
+.price-line .left h1 {
+  color: #003580;
+  font-weight: 700;
+}

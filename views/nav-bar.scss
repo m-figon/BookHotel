@@ -1,0 +1,61 @@
+@import '../global';
+
+.nav-bar {
+    width: 100vw;
+    height: 3rem;
+    @include flex();
+    background-color: $main-color;
+    color: white;
+}
+#aqua {
+    color: rgb(0, 174, 255);
+    margin-right: 0.5rem;
+}
+.nav-bar-content {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    a {
+        display: flex;
+        color: white;
+        text-decoration: none;
+    }
+    .left,
+    .right {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .left {
+        justify-content: flex-start;
+    }
+    .right {
+        justify-content: flex-end;
+
+        select {
+            border: 2px solid $second-color;
+            background-color: $main-color-hover;
+            color: white;
+            border-radius: 3px;
+        }
+        h1 {
+            margin: 0 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        button {
+            margin: 0 1rem;
+            padding: 0.2rem 1rem;
+            border-radius: 2px;
+            @include flex();
+            background-color: white;
+            color: $main-color;
+            font-weight: 700;
+            border: 2px solid white;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

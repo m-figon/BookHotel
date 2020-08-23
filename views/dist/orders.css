@@ -1,0 +1,87 @@
+.orders {
+  width: 100vw;
+  height: calc(100vh - 3rem);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  background-color: #f0f0f0;
+  flex-direction: column;
+}
+
+.orders-display {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+#orders-sign {
+  width: 80rem;
+}
+
+.order-items {
+  width: 80rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  border-left: 1px solid #cecece;
+  border-right: 1px solid #cecece;
+}
+
+.title-order-items {
+  width: 80rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  background-color: #003580;
+  color: white;
+  font-weight: 700;
+}
+
+.order-item,
+.smaller-order-item,
+.bigger-order-item {
+  width: 10rem;
+  height: 100%;
+  border: 1px solid #cecece;
+  border-left: 0;
+  border-right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.smaller-order-item {
+  width: 7rem;
+  height: 100%;
+}
+.smaller-order-item button {
+  clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+  border: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #ffae00;
+}
+.smaller-order-item button:hover {
+  cursor: pointer;
+  background-color: #ffd000;
+}
+
+.bigger-order-item {
+  width: 25rem;
+  height: 100%;
+}
+
+.order-item img,
+.smaller-order-item img,
+.bigger-order-item img {
+  width: 4rem;
+  height: 2.5rem;
+}
+
+.order-item h1,
+.smaller-order-item h1,
+.bigger-order-item h1 {
+  font-size: 1rem;
+}
