@@ -1,4 +1,17 @@
 <div class="details" ng-controller="details-controller">
+    <div ng-show="addConfirm" class="confirm">
+        <div class="confirm-content">
+            <h1>Are you sure you want to reserve this hotel?</h1>
+            <div class="confirm-line">
+                <div class="left">
+                    <button  ng-click="reserveFunc()">Yes</button>
+                </div>
+                <div class="right">
+                    <button ng-click="addConfirmShow(false)">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="search-filters">
         <h2>Search</h2>
         <h1>Destination</h1>
@@ -47,7 +60,7 @@
                 </h1>
             </div>
             <div class="right">
-                <button ng-show="logedAc!=='' && hotel.freeRooms>0 && firstDate2!=='Check In' && secondDate2!=='Check Out' && firstDate2!==null && secondDate2!==null" ng-click="reserveFunc()">Reserve</button>
+                <button ng-show="logedAc!=='' && hotel.freeRooms>0 && firstDate2!=='Check In' && secondDate2!=='Check Out' && firstDate2!==null && secondDate2!==null" ng-click="addConfirmShow(true)">Reserve</button>
                 <a ng-href="#!/login">
                     <h1 id="orange" ng-show="logedAc==='' && hotel.freeRooms>0">Login to be able to reserve hotel</h1>
                 </a>

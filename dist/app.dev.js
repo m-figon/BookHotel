@@ -311,6 +311,14 @@ app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
 }]);
 app.controller('search-controller', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  $scope.addConfirm = false;
+  $scope.tmpObj = null;
+
+  $scope.addConfirmShow = function (value, obj) {
+    $scope.tmpObj = obj;
+    $scope.addConfirm = value;
+  };
+
   $scope.cityFilter = "";
   $scope.adultsNum = null;
   $scope.childrenNum = null;
@@ -477,7 +485,7 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', function
     console.log($scope.checkInOut2);
   };
 
-  $scope.reserveFunc = function (obj) {
+  $scope.reserveFunc = function () {
     $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then(function (data) {
       var users = data.data;
       var user = null;
@@ -493,13 +501,13 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', function
           if ($scope.logedAc === _item.firstName + " " + _item.lastName) {
             user = _item;
             newOrders = _item.orders.slice();
-            console.log(obj);
+            console.log($scope.tmpObj);
             newOrders.push({
-              name: obj.name,
-              city: obj.city,
-              img: obj.img,
-              rating: obj.rating,
-              totalPrice: Math.round($scope.timeDifference * obj.price * $scope.currencyMultiplier * $scope.roomsNum * 100) / 100 + $scope.data.selectedCurrency,
+              name: $scope.tmpObj.name,
+              city: $scope.tmpObj.city,
+              img: $scope.tmpObj.img,
+              rating: $scope.tmpObj.rating,
+              totalPrice: Math.round($scope.timeDifference * $scope.tmpObj.price * $scope.currencyMultiplier * $scope.roomsNum * 100) / 100 + $scope.data.selectedCurrency,
               rooms: $scope.roomsNum,
               adults: $scope.adultsNum,
               children: $scope.childrenNum,
@@ -513,19 +521,20 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', function
               orders: newOrders,
               id: user.id
             }).then(function () {
-              $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels/' + obj.id, {
-                name: obj.name,
-                price: obj.price,
-                stars: obj.stars,
-                img: obj.img,
-                city: obj.city,
-                freeRooms: obj.freeRooms - 1,
-                shortDescription: obj.shortDescription,
-                longDescription: obj.longDescription,
-                rating: obj.rating,
-                opinions: obj.opinions,
-                id: obj.id
+              $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels/' + $scope.tmpObj.id, {
+                name: $scope.tmpObj.name,
+                price: $scope.tmpObj.price,
+                stars: $scope.tmpObj.stars,
+                img: $scope.tmpObj.img,
+                city: $scope.tmpObj.city,
+                freeRooms: $scope.tmpObj.freeRooms - 1,
+                shortDescription: $scope.tmpObj.shortDescription,
+                longDescription: $scope.tmpObj.longDescription,
+                rating: $scope.tmpObj.rating,
+                opinions: $scope.tmpObj.opinions,
+                id: $scope.tmpObj.id
               }).then(function () {
+                $scope.addConfirmShow(false, null);
                 alert('you reserved!');
               });
             });
@@ -737,6 +746,10 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
     console.log($scope.timeDifference2);
   }
 
+  $scope.addConfirmShow = function (value) {
+    $scope.addConfirm = value;
+  };
+
   $scope.reserveFunc = function () {
     $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then(function (data) {
       var users = data.data;
@@ -787,6 +800,7 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
                 opinions: $scope.hotel.opinions,
                 id: $scope.hotel.id
               }).then(function () {
+                $scope.addConfirmShow(false);
                 alert('you reserved!');
               });
             });
@@ -871,6 +885,8 @@ app.controller('login-controller', ['$scope', '$http', '$routeParams', '$locatio
 }]);
 app.controller('orders-controller', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
   $scope.logedUser = null;
+  $scope.deleteConfirm = false;
+  $scope.tmpId = null;
   $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then(function (data) {
     var users = data.data;
     var _iteratorNormalCompletion9 = true;
@@ -902,6 +918,57 @@ app.controller('orders-controller', ['$scope', '$http', '$routeParams', '$locati
       }
     }
   });
+
+  $scope.deleteConfirmShow = function (value, id) {
+    $scope.tmpId = id;
+    $scope.deleteConfirm = value;
+  };
+
+  $scope.deleteOrder = function () {
+    var newOrders = $scope.logedUser.orders.slice();
+    newOrders.splice($scope.tmpId, 1);
+    $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + $scope.logedUser.id, {
+      email: $scope.logedUser.email,
+      firstName: $scope.logedUser.firstName,
+      lastName: $scope.logedUser.lastName,
+      password: $scope.logedUser.password,
+      orders: newOrders,
+      id: $scope.logedUser.id
+    }).then(function () {
+      $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then(function (data) {
+        var users = data.data;
+        var _iteratorNormalCompletion10 = true;
+        var _didIteratorError10 = false;
+        var _iteratorError10 = undefined;
+
+        try {
+          for (var _iterator10 = users[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
+            var item = _step10.value;
+
+            if ($scope.logedAc === item.firstName + " " + item.lastName) {
+              $scope.logedUser = item;
+              console.log($scope.logedUser);
+              console.log($scope.logedUser.orders);
+              $scope.deleteConfirmShow(false, null);
+            }
+          }
+        } catch (err) {
+          _didIteratorError10 = true;
+          _iteratorError10 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion10 && _iterator10["return"] != null) {
+              _iterator10["return"]();
+            }
+          } finally {
+            if (_didIteratorError10) {
+              throw _iteratorError10;
+            }
+          }
+        }
+      });
+    });
+  };
 }]);
 app.controller('register-controller', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
   $scope.email = "";

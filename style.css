@@ -16,7 +16,7 @@ a {
 }
 #aqua {
   color: rgb(0, 174, 255);
-  margin-right:0.5rem;
+  margin-right: 0.5rem;
 }
 .nav-bar-content {
   width: 50%;
@@ -40,10 +40,10 @@ a {
   font-size: 1rem;
   font-weight: 700;
 }
-.nav-bar-content .right select{
-  border:2px solid rgb(255, 174, 0);
+.nav-bar-content .right select {
+  border: 2px solid rgb(255, 174, 0);
   background-color: rgb(1, 134, 196);
-  color:white;
+  color: white;
   border-radius: 3px;
 }
 .right button {
@@ -58,7 +58,7 @@ a {
   font-weight: 700;
   border: 2px solid white;
 }
-.right button:hover{
+.right button:hover {
   cursor: pointer;
 }
 .left {
@@ -96,23 +96,23 @@ a {
   display: flex;
   flex-direction: column;
 }
-.filters{
+.filters {
   display: flex;
-  width:100%;
+  width: 100%;
   height: 2rem;
-  border:1px solid rgb(1, 134, 196);
-  border-top:5px solid rgb(1, 134, 196);
-  border-right:0;
+  border: 1px solid rgb(1, 134, 196);
+  border-top: 5px solid rgb(1, 134, 196);
+  border-right: 0;
   margin-bottom: 1.5rem;
 }
-.filters button{
-  background-color:white;
-  width:10rem;
-  border:0;
+.filters button {
+  background-color: white;
+  width: 10rem;
+  border: 0;
   border-right: 1px solid rgb(1, 134, 196);
-  color:#003580;
+  color: #003580;
 }
-.filters button:hover{
+.filters button:hover {
   cursor: pointer;
 }
 .home-content h2 {
@@ -320,32 +320,38 @@ a {
   width: 25%;
 }
 .hotel .right-side h1 {
-  font-size: 1.0rem;
+  font-size: 1rem;
+  margin:0.2rem 0;
 }
 .hotel .right-side h2 {
   background-color: #003580;
   color: white;
   font-weight: 700;
   width: 3rem;
-  height:2rem;
+  height: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0.5rem 0;
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   border: 0;
-  font-size:1.0rem;
+  font-size: 1rem;
 }
 .hotel .right-side button {
+  margin-top:0.3rem;
   border-radius: 2px;
   display: flex;
   height: 2rem;
   justify-content: center;
   align-items: center;
-  background-color: #003580;
+  background-color: rgb(255, 174, 0);
+  border:1px solid gray;
   color: white;
   font-weight: 700;
-  border: 0;
+}
+.hotel .right-side button:hover {
+  cursor: pointer;
+  background-color: rgb(255, 208, 0);
 }
 .search-bar button:hover {
   cursor: pointer;
@@ -509,39 +515,39 @@ a {
 }
 .opinion .left {
   width: 20%;
-  height:100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   border-right: 1px solid gray;
 }
-.opinion .right button{
+.opinion .right button {
   width: 5rem;
-  background-color: #003580;;
-  height:2.5rem;
-  font-size:1rem;
-  color:white;
+  background-color: #003580;
+  height: 2.5rem;
+  font-size: 1rem;
+  color: white;
   border: 1px solid gray;
   border-radius: 2px;
   font-weight: 700;
   border-radius: 5px;
 }
-.opinion .right select{
-  width:5.5rem;
+.opinion .right select {
+  width: 5.5rem;
   padding: 0 1rem;
-  height:2rem;
-  margin:1rem 0;
+  height: 2rem;
+  margin: 1rem 0;
   border: 1px solid gray;
   border-radius: 4px;
 }
-.opinion .middle input{
-  width:20rem;
+.opinion .middle input {
+  width: 20rem;
   padding: 0 1rem;
-  height:2rem;
-  margin:1rem 0;
+  height: 2rem;
+  margin: 1rem 0;
   border: 1px solid gray;
   border-radius: 4px;
 }
-.opinion .left h1{
+.opinion .left h1 {
   color: #003580;
   font-weight: 700;
 }
@@ -549,7 +555,7 @@ a {
   width: 50%;
   display: flex;
   justify-content: flex-start;
-  padding-left:1rem;
+  padding-left: 1rem;
 }
 .opinion .right {
   width: 30%;
@@ -561,15 +567,16 @@ a {
   color: white;
   font-weight: 700;
   width: 2rem;
-  height:1.5rem;
+  height: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0.5rem 0;background-color: #003580;
+  margin: 0.5rem 0;
+  background-color: #003580;
   color: white;
   font-weight: 700;
   width: 2rem;
-  height:1.5rem;
+  height: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -579,83 +586,83 @@ a {
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   border: 0;
 }
-.login-content{
-  width:20rem;
+.login-content {
+  width: 20rem;
   height: auto;
   display: flex;
   flex-direction: column;
-  border:1px solid gray;
+  border: 1px solid gray;
   padding: 0rem 3rem;
   padding-bottom: 2rem;
   border-radius: 10px;
   background-color: white;
 }
-.login-content input{
-  width:17.5rem;
+.login-content input {
+  width: 17.5rem;
   padding: 0 1rem;
   margin-bottom: 1rem;
-  height:2rem;
+  height: 2rem;
   border: 1px solid gray;
   border-radius: 2px;
 }
-.login-content input:focus{
+.login-content input:focus {
   -webkit-box-shadow: 0px 0px 10px 0px #003580;
--moz-box-shadow: 0px 0px 10px 0px #003580;
-box-shadow: 0px 0px 10px 0px #003580;
+  -moz-box-shadow: 0px 0px 10px 0px #003580;
+  box-shadow: 0px 0px 10px 0px #003580;
 }
-.login-content button{
+.login-content button {
   width: 19.7rem;
   background-color: #0156ce;
-  height:3rem;
-  font-size:1rem;
-  color:white;
+  height: 3rem;
+  font-size: 1rem;
+  color: white;
   border: 1px solid gray;
   border-radius: 2px;
   font-weight: 700;
 }
-.login-content button:hover{
+.login-content button:hover {
   background-color: #003580;
   cursor: pointer;
 }
-.login-content h2{
-  font-size:1.5rem;
-  margin:0;
+.login-content h2 {
+  font-size: 1.5rem;
+  margin: 0;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
-.login-content p{
-  font-size:1.0rem;
-  margin:0;
+.login-content p {
+  font-size: 1rem;
+  margin: 0;
   margin-bottom: 0.2rem;
 }
-.line{
+.line {
   margin-top: 1rem;
   display: flex;
   align-items: center;
 }
-.price-line{
+.price-line {
   display: flex;
   align-items: center;
-  width:50rem;
-  margin:1rem 0;
+  width: 50rem;
+  margin: 1rem 0;
 }
 .price-line .left,
-.price-line .right{
-  width:50%;
+.price-line .right {
+  width: 50%;
   display: flex;
   align-items: center;
 }
-.price-line .left{
+.price-line .left {
   justify-content: flex-start;
 }
-.price-line .left h1{
-  color:#003580;
+.price-line .left h1 {
+  color: #003580;
   font-weight: 700;
 }
-.price-line .right{
+.price-line .right {
   justify-content: flex-end;
 }
-.price-line .right button{
+.price-line .right button {
   width: 5rem;
   height: 2rem;
   display: flex;
@@ -666,41 +673,43 @@ box-shadow: 0px 0px 10px 0px #003580;
   border: 1px solid gray;
   background-color: rgb(255, 174, 0);
 }
-#orange{
-  color:rgb(255, 174, 0);
+.price-line .right button:hover {
+  background-color: rgb(255, 208, 0);
 }
-#orange:hover{
+#orange {
+  color: rgb(255, 174, 0);
+}
+#orange:hover {
   cursor: pointer;
 }
-.line p{
-  margin:0;
+.line p {
+  margin: 0;
   margin-right: 0.5rem;
 }
-#blue{
+#blue {
   color: #003580;
   font-weight: 700;
 }
-#blue:hover{
+#blue:hover {
   cursor: pointer;
 }
-.line h1{
+.line h1 {
   font-size: 1rem;
 }
-#bold{
+#bold {
   font-weight: 700;
-  margin-top:0;
-  margin-bottom: 2rem;
-
-}
-#bottom{
+  margin-top: 0;
   margin-bottom: 2rem;
 }
-#warning{
-  color:red;
+#bottom {
+  margin-bottom: 2rem;
+}
+#warning {
+  color: red;
   font-weight: 700;
   margin-bottom: 1rem;
 }
-.orders{
+.orders {
   width: 100vw;
   height: calc(100vh - 3rem);
   display: flex;
@@ -709,34 +718,146 @@ box-shadow: 0px 0px 10px 0px #003580;
   background-color: rgb(240, 240, 240);
   flex-direction: column;
 }
-.orders-display{
-  height:auto;
+.orders-display {
+  height: auto;
   display: flex;
   flex-direction: column;
 }
-.order-items{
-  width:60rem;
-  height:3rem;
+.order-items {
+  width: 80rem;
+  height: 3rem;
   display: flex;
   align-items: center;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
 }
-#title-row{
+.title-order-items {
+  width: 80rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
   background-color: #003580;
-  color:white;
+  color: white;
   font-weight: 700;
 }
 .order-item{
-  width:10rem;
-  height: 3rem;
+  width: 10rem;
+  height: 100%;
   border: 1px solid gray;
+  border-left: 0;
+  border-right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.order-item img{
-  width:4rem;
-  height:2.5rem;
+.smaller-order-item{
+  width: 7rem;
+  height: 100%;
+  border: 1px solid gray;
+  border-left: 0;
+  border-right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.order-item h1{
-  font-size: 1.0rem;
+.smaller-order-item button{
+  clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+  border:0;
+  width: 1.5rem;
+  height:1.5rem;
+  background-color: rgb(255, 174, 0);
+}
+.smaller-order-item button:hover {
+  cursor: pointer;
+  background-color: rgb(255, 208, 0);
+}
+.bigger-order-item{
+  width: 25rem;
+  height: 100%;
+  border: 1px solid gray;
+  border-left: 0;
+  border-right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.order-item img,
+.smaller-order-item img,
+.bigger-order-item img {
+  width: 4rem;
+  height: 2.5rem;
+}
+.order-item h1,
+.smaller-order-item h1,
+.bigger-order-item h1 {
+  font-size: 1rem;
+}
+.confirm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.confirm-content {
+  width: 20rem;
+  height: auto;
+  padding: 2rem;
+  background-color: white;
+  border:1px solid gray;
+  border-radius: 10px;
+}
+.confirm-content h1 {
+  font-size: 1.2rem;
+}
+.confirm-line {
+  display: flex;
+  align-items: center;
+}
+.confirm-line .left {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.confirm-line .right {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.confirm-line .left button,
+.confirm-line .right button {
+  width: 5rem;
+  height: 2rem;
+  display: flex;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 1px solid gray;
+  background-color: rgb(255, 174, 0);
+}
+.confirm-line .left button:hover,
+.confirm-line .right button:hover {
+  cursor: pointer;
+  background-color: rgb(255, 208, 0);
+}
+.img1 h1,
+.img2 h1,
+.img3 h1,
+.img4 h1,
+.img5 h1{
+  position: relative;
+  width:auto;
+  z-index: 3;
+  padding:1rem;
+  font-size: 1.2rem;
+  color:white;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-bottom:-3rem;
 }

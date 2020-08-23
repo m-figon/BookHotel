@@ -1,33 +1,48 @@
 <div ng-controller="orders-controller">
+    <div ng-show="deleteConfirm" class="confirm">
+        <div class="confirm-content">
+            <h1>Are you sure you want to delete this reservation?</h1>
+            <div class="confirm-line">
+                <div class="left">
+                    <button ng-click="deleteOrder()">Yes</button>
+                </div>
+                <div class="right">
+                    <button ng-click="deleteConfirmShow(false,null)">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="orders" ng-show="logedAc!=='' && logedUser.orders.length>0">
     <h2>Your orders</h2>
-    <div class="order-items" id="title-row">
+    <div class="title-order-items">
         <div class="order-item" >
             Image
         </div>
-        <div class="order-item" >
+        <div class="bigger-order-item" >
             Name
         </div>
         <div class="order-item" >
             City
         </div>
-        <div class="order-item" >
+        <div class="bigger-order-item" >
             Date
         </div>
-        <div class="order-item" >
+        <div class="smaller-order-item" >
             Rating
         </div>
         <div class="order-item" >
             Total Price
         </div>
-        <div class="order-item" >
+        <div class="smaller-order-item" >
             Rooms
         </div>
-        <div class="order-item" >
+        <div class="smaller-order-item" >
             Adults
         </div>
-        <div class="order-item" >
+        <div class="smaller-order-item" >
             Children
+        </div>
+        <div class="smaller-order-item" >
         </div>
     </div>
     <div class="orders-display">
@@ -35,29 +50,32 @@
             <div class="order-item" >
                 <img src="{{order.img}}">
             </div>
-            <div class="order-item" >
+            <div class="bigger-order-item" >
                 <h1>{{order.name}}</h1>
             </div>
             <div class="order-item" >
                 <h1>{{order.city}}</h1>
             </div>
-            <div class="order-item" >
+            <div class="bigger-order-item" >
                 <h1>{{order.date}}</h1>
             </div>
-            <div class="order-item" >
+            <div class="smaller-order-item" >
                 <h1>{{order.rating}}</h1>
             </div>
             <div class="order-item" >
                 <h1>{{order.totalPrice}}</h1>
             </div>
-            <div class="order-item" >
+            <div class="smaller-order-item" >
                 <h1>{{order.rooms}}</h1>
             </div>
-            <div class="order-item" >
+            <div class="smaller-order-item" >
                 <h1>{{order.adults}}</h1>
             </div>
-            <div class="order-item" >
+            <div class="smaller-order-item" >
                 <h1>{{order.children}}</h1>
+            </div>
+            <div class="smaller-order-item" >
+                <button ng-click="deleteConfirmShow(true,order.id)"></button>
             </div>
         </div>
         
