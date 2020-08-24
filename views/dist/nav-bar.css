@@ -2,7 +2,7 @@
   width: 100vw;
   height: 3rem;
   display: flex;
-  justify-items: center;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
   background-color: #003580;
@@ -34,6 +34,11 @@
 .nav-bar-content .left {
   justify-content: flex-start;
 }
+.nav-bar-content .left img {
+  widows: 2rem;
+  height: 2rem;
+  display: none;
+}
 .nav-bar-content .right {
   justify-content: flex-end;
 }
@@ -53,7 +58,7 @@
   padding: 0.2rem 1rem;
   border-radius: 2px;
   display: flex;
-  justify-items: center;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
   background-color: white;
@@ -63,4 +68,93 @@
 }
 .nav-bar-content .right button:hover {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1600px) {
+  .nav-bar-content .left {
+    width: 40%;
+  }
+
+  .nav-bar-content .right {
+    width: 60%;
+  }
+}
+@media only screen and (max-width: 1350px) {
+  .nav-bar-content .left {
+    width: 30%;
+  }
+
+  .nav-bar-content .right {
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 1150px) {
+  .nav-bar-content .left {
+    width: 20%;
+  }
+
+  .nav-bar-content .right {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 950px) {
+  .nav-bar-content {
+    width: 60%;
+  }
+}
+@media only screen and (max-width: 850px) {
+  .nav-bar-content {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 660px) {
+  .nav-bar-content {
+    width: 90%;
+  }
+
+  .nav-bar-content .left h2 {
+    font-size: 1.2rem;
+  }
+
+  .nav-bar-content .right button,
+.nav-bar-content .right h1,
+.nav-bar-content .right select {
+    margin: 0 0.5rem;
+  }
+
+  .nav-bar-content .right button {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .nav-bar-content .right h1 {
+    font-size: 0.8rem;
+  }
+}
+@media only screen and (max-width: 460px) {
+  .nav-bar-content {
+    width: 92%;
+  }
+
+  .nav-bar-content .left h2 {
+    display: none;
+  }
+
+  .nav-bar-content .left img {
+    display: flex;
+  }
+
+  .nav-bar-content .left {
+    width: 10%;
+  }
+
+  .nav-bar-content .right {
+    width: 90%;
+  }
+
+  .nav-bar-content .right button,
+.nav-bar-content .right h1,
+.nav-bar-content .right select {
+    margin: 0 0.3rem;
+  }
 }
