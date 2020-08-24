@@ -35,7 +35,7 @@
   height: 2.5rem;
   border-radius: 5px;
   display: flex;
-  justify-items: center;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
   color: white;
@@ -55,4 +55,19 @@
 .search-line select {
   width: 12rem;
   margin-right: 1rem;
+}
+
+@media only screen and (max-width: 1150px) {
+  .details .search-filters {
+    width: 12rem;
+  }
+  .details .search-line select {
+    width: 5.7rem;
+    margin-right: 0.5rem;
+  }
+  .details .search-filters input, .details .search-filters select {
+    height: 2rem;
+    width: auto;
+    padding: 0 0.3rem;
+  }
 }

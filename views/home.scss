@@ -230,6 +230,9 @@
         border: 1px solid $second-color;
         margin-bottom: 0.5rem;
     }
+    .search-bar h1{
+        justify-content: flex-start;
+    }
     .search-bar button{
         width:19rem;
     }

@@ -13,7 +13,14 @@
     border-radius: 3px;
     align-items: center;
     margin-bottom: 1rem;
+    padding: 0 1rem;
 }
+.search-content {
+    width: 50%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+  }
 .hotel {
     .left-side,
     .middle-side,
@@ -98,7 +105,17 @@
         }
     }
 }
-
+.search {
+    padding-top: 3rem;
+    align-items: flex-start;
+    height: auto;
+    width: 100vw;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(240, 240, 240);
+  }
 .filters {
     display: flex;
     width: 100%;
@@ -116,5 +133,89 @@
         &:hover {
             cursor: pointer;
         }
+    }
+}
+@media only screen and (max-width: 1150px) {
+    .hotel{
+        flex-direction: column;
+        height: auto;
+    }
+    .hotel .left-side,
+    .hotel .middle-side,
+    .hotel .right-side{
+        width:100%;
+        align-items: flex-start;
+        margin:1rem 0;
+    }
+    .hotel .left-side{
+        align-items: center;
+    }
+    .hotel .right-side{
+        flex-direction: row;
+    }
+    .hotel .middle-side h1,
+    .hotel .middle-side p,
+    .hotel .middle-side h2,
+    .hotel .middle-side .stars-line,
+    .hotel .right-side h1,
+    .hotel .right-side p{
+        padding: 0 1rem;
+    }
+    .hotel .right-side h2,
+    .hotel .right-side button,
+    .hotel .right-side h1,
+    .hotel .right-side p{
+        margin: 0;
+    }
+    .hotel .right-side{
+      width: 20rem;  
+    }
+    .search{
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: auto;
+        .search-filters {
+            width: 24rem;
+            margin-right: 0;
+            margin-bottom: 2rem;
+        }
+        .filters{
+            height:3rem;
+        }
+        .search-line select {
+            width: 25rem;
+        }
+        .search-filters input, .search-filters select {
+            height: 2rem;
+            width: auto;
+            padding: 0 0.3rem;
+        }
+    }
+}
+@media only screen and (max-width: 700px) {
+    .hotels{
+        width:85%;
+    }
+    .search-content{
+        width:80%;
+    }
+    .search .search-filters {
+        width: auto;
+    }
+    .hotel .right-side{
+        flex-direction: column;
+        width:100%;
+    }
+    .filters button{
+        font-size: 0.7rem;
+    }
+    .hotel .right-side h1{
+        padding:0;
+    }
+    .hotel .right-side h1,
+    .hotel .right-side h2,
+    .hotel .right-side button{
+        margin:0.2rem 1rem;
     }
 }

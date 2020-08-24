@@ -56,3 +56,20 @@
         margin-right: 1rem;
     }
 }
+@media only screen and (max-width: 1150px) {
+    .details{
+        .search-filters {
+            width: 12rem;
+        }
+        .search-line select {
+            width: 5.7rem;
+            margin-right: 0.5rem;
+        }
+        .search-filters input, .search-filters select {
+            height: 2rem;
+            width: auto;
+            padding: 0 0.3rem;
+        }
+    }
+    
+}

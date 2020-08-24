@@ -17,7 +17,6 @@ body {
     text-decoration: none;
   }
   .home,
-  .search,
   .details,
   .login {
     width: 100vw;
@@ -31,13 +30,11 @@ body {
   .details {
     background-color: white;
   }
-  .search,
   .details {
     padding-top: 3rem;
     align-items: flex-start;
     height: auto;
   }
-  .search-content,
   .details-content {
     width: 50%;
     height: 90%;
