@@ -1,4 +1,7 @@
 <div class="home">
+  <div ng-show="!loaded" class="loading-screen">
+    <img src="../imgs/load.gif">
+  </div>
   <div class="home-content">
     <h2>Find hotels, houses and much more to book</h2>
     <h1>From cozy cottages to luxury apartments</h1>
@@ -6,11 +9,11 @@
       <input ng-model="data.city" ng-change="writeFunc()" ng-focus="focusFunc($event)" ng-blur="blurFunc($event)">
       <input ng-click="showCalendar()" ng-model="checkInOut">
       <h1  ng-click="showRoomsSettings()">{{adults}} adults - {{children}} children - {{rooms}} room</h1>
-      <button ng-click="displayMessage()" ng-show="data.city==='' || data.city==='What is your destination?'">Search</button>
-      <a ng-click="hideCalendar()" ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}">
+      <button ng-click="displayMessage(true)" ng-show="data.city==='' || data.city==='What is your destination?'">Search</button>
+      <a ng-click="displayMessage(false)" ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}">
         <button ng-show="data.city!=='' && data.city!=='What is your destination?' && checkIn==='Check In' && checkOut==='Check Out'">Search</button>
       </a>
-      <a ng-click="hideCalendar()" ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}/{{checkIn}}-{{checkOut}}">
+      <a ng-click="displayMessage(false)" ng-click="searchFilter()" ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}/{{checkIn}}-{{checkOut}}">
         <button ng-show="data.city!=='' && data.city!=='What is your destination?' && checkIn!=='Check In' && checkOut!=='Check Out'">Search</button>
       </a>
       <button ng-show="data.city!=='' && data.city!=='What is your destination?' && ((checkIn!=='Check In' && checkOut==='Check Out')|| (checkOut!=='Check Out' && checkIn==='Check In'))">Search</button>
@@ -20,27 +23,22 @@
     <ng-include src="'views/room-settings.html'"></ng-include>
     <div class="ad">
       <div class="img1">
-          <h1>{{hotels[0].city}} </h1>
         <img
           ng-src="{{hotels[0].img}}">
       </div>
       <div class="img2">
-          <h1>{{hotels[1].city}} </h1>
         <img
         ng-src="{{hotels[1].img}}">
       </div>
       <div class="img3">
-          <h1>{{hotels[2].city}} </h1>
         <img
         ng-src="{{hotels[2].img}}">
       </div>
       <div class="img4">
-          <h1>{{hotels[3].city}} </h1>
         <img
         ng-src="{{hotels[3].img}}">
       </div>
       <div class="img5">
-          <h1>{{hotels[4].city}} </h1>
         <img
         ng-src="{{hotels[4].img}}">
       </div>

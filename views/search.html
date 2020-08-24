@@ -15,34 +15,35 @@
     <div class="search-filters">
         <h2>Search</h2>
         <h1>Destination</h1>
-        <input ng-model="cityFilter">
+        <input ng-model="data.city">
         <h1>From</h1>
-        <input ng-model="firstDate" ng-click="showCalendar()" ng-readonly="true">
-        <ng-include src="'views/calendar2.html'"></ng-include>
+        <input ng-model="checkIn" ng-click="showCalendar()" ng-readonly="true">
+        <ng-include src="'views/calendar.html'"></ng-include>
         <h1>To</h1>
-        <input ng-model="secondDate" ng-click="showCalendar()" ng-readonly="true">
-        <select ng-model="adultsNum">
+        <input ng-model="checkOut" ng-click="showCalendar()" ng-readonly="true">
+        <select ng-model="adults">
             <option value="1">1 adult</option>
             <option ng-repeat="num in selectArray" value="{{num}}">{{num}} adults</option>
         </select>
         <div class="search-line">
-            <select ng-model="childrenNum">
+            <select ng-model="children">
                 <option value="0">0 children</option>
                 <option value="1">1 children</option>
                 <option ng-repeat="num in selectArray" value="{{num}}">{{num}} children</option>
             </select>
-            <select ng-model="roomsNum">
+            <select ng-model="rooms">
                 <option value="1">1 room</option>
                 <option ng-repeat="num in selectArray" value="{{num}}">{{num}} rooms</option>
             </select>
         </div>
-        <a ng-href="#!/search/{{cityFilter}}/{{adultsNum}}-{{childrenNum}}-{{roomsNum}}">
+        
+        <a ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}">
             <button
-                ng-show="firstDate==='Check In' || secondDate==='Check Out' || firstDate==='' || secondDate===''">SEARCH</button>
+                ng-show="checkIn==='Check In' || checkOut==='Check Out' || checkIn==='' || checkOut===''">SEARCH</button>
         </a>
-        <a ng-href="#!/search/{{cityFilter}}/{{adultsNum}}-{{childrenNum}}-{{roomsNum}}/{{firstDate}}-{{secondDate}}">
+        <a ng-href="#!/search/{{data.city}}/{{adults}}-{{children}}-{{rooms}}/{{checkIn}}-{{checkOut}}">
             <button
-                ng-show="firstDate!=='Check In' && secondDate!=='Check Out' && firstDate!=='' && secondDate!==''">SEARCH</button>
+                ng-show="checkIn!=='Check In' && checkOut!=='Check Out' && checkIn!=='' && checkOut!==''">SEARCH</button>
         </a>
     </div>
     <div class="search-content">
@@ -67,18 +68,18 @@
             </button>
         </div>
         <div class="hotels" ng-repeat="item in hotels  | orderBy:order">
-            <div class="hotel" ng-show="item.city.toLowerCase().includes(cityFilter.toLowerCase())">
+            <div class="hotel" ng-show="item.city.toLowerCase().includes(data.city.toLowerCase())">
                 <div class="left-side">
                     <img ng-src="{{item.img}}">
                 </div>
                 <div class="middle-side">
-                    <a ng-href="#!/{{item.name}}/{{cityFilter}}/{{adultsNum}}-{{childrenNum}}-{{roomsNum}}">
+                    <a ng-href="#!/{{item.name}}/{{data.city}}/{{adults}}-{{children}}-{{rooms}}">
                         <h2
                             ng-show="firstDate==='Check In' || secondDate==='Check Out' || firstDate==='' || secondDate===''">
                             {{item.name}}</h2>
                     </a>
                     <a
-                        ng-href="#!/{{item.name}}/{{cityFilter}}/{{adultsNum}}-{{childrenNum}}-{{roomsNum}}/{{firstDate}}-{{secondDate}}">
+                        ng-href="#!/{{item.name}}/{{data.city}}/{{adults}}-{{children}}-{{rooms}}/{{checkIn}}-{{checkOut}}">
                         <h2
                             ng-show="firstDate!=='Check In' && secondDate!=='Check Out' && firstDate!=='' && secondDate!==''">
                             {{item.name}}</h2>
@@ -95,8 +96,8 @@
                     <h1 id="warning" ng-show="item.freeRooms<5 && item.freeRooms>0">Rooms left: {{item.freeRooms}}</h1>
                     <h1 id="warning" ng-show="item.freeRooms===0">No Rooms Left</h1>    
                     <h1 ng-show="timeDifference">
-                        {{timeDifference*item.price*currencyMultiplier*roomsNum | currency: data.selectedCurrency}}</h1>
-                    <button ng-show="logedAc!=='' && item.freeRooms>0 && firstDate!=='Check In' && secondDate!=='Check Out'" ng-click="addConfirmShow(true,item)">Reserve</button>
+                        {{timeDifference*item.price*currencyMultiplier*rooms | currency: data.selectedCurrency}}</h1>
+                    <button ng-show="logedAc!=='' && item.freeRooms>0 && checkIn!=='Check In' && checkOut!=='Check Out'" ng-click="addConfirmShow(true,item)">Reserve</button>
                     <a href="#!/login">
                         <h1 id="orange" ng-show="logedAc==='' && item.freeRooms>0">Login to reserve</h1>
                     </a>

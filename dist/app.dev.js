@@ -33,6 +33,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
   //
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  $scope.loaded = false;
   $scope.data = {};
   $scope.data.selectedCurrency = 'PLN';
   $scope.currencyMultiplier = 1;
@@ -53,7 +54,6 @@ app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
     }
   };
 
-  $scope.timeDifference = null;
   $scope.previousFilterButton;
   $scope.logedAc = "";
   $scope.date1 = moment().format('ll');
@@ -94,8 +94,7 @@ app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
   };
 
   $scope.chooseDay = function (value, num, e) {
-    console.log($scope.month1 + " " + value + ", " + $scope.year1);
-
+    //console.log($scope.month1 + " " + value + ", " + $scope.year1);
     if (num === '1') {
       if (chosenDates === 0) {
         if (previousTarget1) {
@@ -155,6 +154,9 @@ app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
     }
 
     $scope.checkInOut = $scope.checkIn + '-' + $scope.checkOut;
+    console.log($scope.checkInOut);
+    console.log($scope.checkIn);
+    console.log($scope.checkOut);
   };
 
   console.log($scope.month1);
@@ -229,8 +231,9 @@ app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
     $scope.calendarVisible = false;
   };
 
-  $scope.displayMessage = function () {
-    $scope.searchP = true;
+  $scope.displayMessage = function (value) {
+    $scope.searchP = value;
+    $scope.hideCalendar();
   };
 
   $scope.searchFilter = function () {
@@ -268,6 +271,7 @@ app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
 
   $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/hotels').then(function (data) {
     $scope.hotels = data.data;
+    $scope.loaded = true;
     console.log($scope.hotels);
   });
 
@@ -310,8 +314,9 @@ app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
   };
 }]);
 app.controller('search-controller', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   $scope.addConfirm = false;
+  $scope.timeDifference = null;
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   $scope.tmpObj = null;
 
   $scope.addConfirmShow = function (value, obj) {
@@ -319,43 +324,23 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', function
     $scope.addConfirm = value;
   };
 
-  $scope.cityFilter = "";
-  $scope.adultsNum = null;
-  $scope.childrenNum = null;
-  $scope.roomsNum = null;
-  $scope.firstDate = "Check In";
-  $scope.secondDate = "Check Out";
-  $scope.checkInOut2;
-  var chosenDates2 = 0;
-  var previousTarget1 = null;
-  var previousTarget2 = null;
-  $scope.date3 = moment().format('ll');
-  $scope.date4 = moment().add(1, 'months').format('ll');
-  $scope.checkInOut2 = $scope.firstDate + '-' + $scope.secondDate;
-  $scope.year3 = $scope.date3.substr(8, 4);
-  $scope.month3 = $scope.date3.substr(0, 3);
-  $scope.month4 = $scope.date4.substr(0, 3);
-  $scope.year4 = $scope.date4.substr(8, 4);
   $scope.selectArray = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
 
   if ($routeParams.city) {
-    $scope.cityFilter = $routeParams.city;
+    $scope.$parent.data.city = $routeParams.city;
   }
 
   if ($routeParams.type) {
     var tmpType = $routeParams.type.split('-');
-    $scope.adultsNum = tmpType[0];
-    $scope.childrenNum = tmpType[1];
-    $scope.roomsNum = tmpType[2];
-    console.log($scope.adultsNum);
+    $scope.$parent.adults = tmpType[0];
+    $scope.$parent.children = tmpType[1];
+    $scope.$parent.rooms = tmpType[2];
   }
 
   if ($routeParams.date) {
     var tmpDate = $routeParams.date.split('-');
-    $scope.firstDate = tmpDate[0];
-    $scope.secondDate = tmpDate[1];
-    console.log($scope.firstDate);
-    console.log($scope.secondDate);
+    $scope.$parent.checkIn = tmpDate[0];
+    $scope.$parent.checkOut = tmpDate[1];
     var first = 0;
     var second = 0;
     var _iteratorNormalCompletion2 = true;
@@ -368,11 +353,11 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', function
             key = _step2$value[0],
             item = _step2$value[1];
 
-        if (item === $scope.secondDate.substr(0, 3)) {
+        if (item === $scope.$parent.checkOut.substr(0, 3)) {
           second = key;
         }
 
-        if (item === $scope.firstDate.substr(0, 3)) {
+        if (item === $scope.$parent.checkIn.substr(0, 3)) {
           first = key;
         }
       }
@@ -392,98 +377,14 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', function
     }
 
     if (second === first) {
-      $scope.timeDifference = parseInt($scope.secondDate.substr(4, 2)) - parseInt($scope.firstDate.substr(4, 2));
+      $scope.timeDifference = parseInt($scope.$parent.checkOut.substr(4, 2)) - parseInt($scope.$parent.checkIn.substr(4, 2));
     } else if (second === first + 1) {
-      $scope.timeDifference = parseInt($scope.secondDate.substr(4, 2)) - parseInt($scope.firstDate.substr(4, 2));
+      $scope.timeDifference = parseInt($scope.$parent.checkOut.substr(4, 2)) - parseInt($scope.$parent.checkIn.substr(4, 2));
       $scope.timeDifference += 30;
     }
 
     console.log($scope.timeDifference);
   }
-
-  $scope.monthOperation2 = function (value) {
-    if (value === '-') {
-      $scope.date3 = moment($scope.date3).subtract(1, 'months').format('ll');
-      $scope.date4 = moment($scope.date4).subtract(1, 'months').format('ll');
-      $scope.year3 = $scope.date3.substr(8, 4);
-      $scope.month3 = $scope.date3.substr(0, 3);
-      $scope.month4 = $scope.date4.substr(0, 3);
-      $scope.year4 = $scope.date4.substr(8, 4);
-    } else if (value === "+") {
-      $scope.date3 = moment($scope.date3).add(1, 'months').format('ll');
-      $scope.date4 = moment($scope.date4).add(1, 'months').format('ll');
-      $scope.year3 = $scope.date3.substr(8, 4);
-      $scope.month3 = $scope.date3.substr(0, 3);
-      $scope.month4 = $scope.date4.substr(0, 3);
-      $scope.year4 = $scope.date4.substr(8, 4);
-    }
-  };
-
-  $scope.chooseDay2 = function (value, num, e) {
-    console.log($scope.month3 + " " + value + ", " + $scope.year3);
-    $scope.firstDate = $scope.month3 + " " + value + ", " + $scope.year3;
-
-    if (num === '1') {
-      if (chosenDates2 === 0) {
-        if (previousTarget1) {
-          previousTarget1.style.backgroundColor = 'white';
-          previousTarget1.style.color = 'black';
-        }
-
-        previousTarget1 = e.target;
-        $scope.firstDate = $scope.month3 + " " + value + ", " + $scope.year3;
-        e.target.style.backgroundColor = "#003580";
-        e.target.style.color = "white";
-        chosenDates2++;
-      } else if (chosenDates2 === 1) {
-        if (previousTarget2) {
-          previousTarget2.style.backgroundColor = 'white';
-          previousTarget2.style.color = 'black';
-        }
-
-        previousTarget2 = e.target;
-        $scope.secondDate = $scope.month3 + " " + value + ", " + $scope.year3;
-        e.target.style.backgroundColor = "#003580";
-        e.target.style.color = "white";
-        chosenDates2 = 0;
-      }
-    } else if (num === '2') {
-      if (chosenDates2 === 0) {
-        $scope.firstDate = $scope.month4 + " " + value + ", " + $scope.year4;
-        e.target.style.backgroundColor = "#003580";
-        e.target.style.color = "white";
-        chosenDates2++;
-
-        if (previousTarget1) {
-          previousTarget1.style.backgroundColor = 'white';
-          previousTarget1.style.color = 'black';
-        }
-
-        previousTarget1 = e.target;
-      } else if (chosenDates2 === 1) {
-        $scope.secondDate = $scope.month4 + " " + value + ", " + $scope.year4;
-        e.target.style.backgroundColor = "#003580";
-        e.target.style.color = "white";
-        chosenDates2 = 0;
-
-        if (previousTarget2) {
-          previousTarget2.style.backgroundColor = 'white';
-          previousTarget2.style.color = 'black';
-        }
-
-        previousTarget2 = e.target;
-      }
-    }
-
-    if ($scope.firstDate > $scope.secondDate) {
-      var _tmpDate = $scope.firstDate;
-      $scope.firstDate = $scope.secondDate;
-      $scope.secondDate = _tmpDate;
-    }
-
-    $scope.checkInOut2 = $scope.firstDate + '-' + $scope.secondDate;
-    console.log($scope.checkInOut2);
-  };
 
   $scope.reserveFunc = function () {
     $http.get('https://rocky-citadel-32862.herokuapp.com/BookHotel/users').then(function (data) {
@@ -507,11 +408,11 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', function
               city: $scope.tmpObj.city,
               img: $scope.tmpObj.img,
               rating: $scope.tmpObj.rating,
-              totalPrice: Math.round($scope.timeDifference * $scope.tmpObj.price * $scope.currencyMultiplier * $scope.roomsNum * 100) / 100 + $scope.data.selectedCurrency,
-              rooms: $scope.roomsNum,
-              adults: $scope.adultsNum,
-              children: $scope.childrenNum,
-              date: $scope.firstDate + "-" + $scope.secondDate
+              totalPrice: Math.round($scope.timeDifference * $scope.tmpObj.price * $scope.currencyMultiplier * $scope.$parent.rooms * 100) / 100 + $scope.data.selectedCurrency,
+              rooms: $scope.$parent.rooms,
+              adults: $scope.$parent.adults,
+              children: $scope.$parent.children,
+              date: $scope.$parent.checkIn + "-" + $scope.$parent.checkOut
             });
             $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + user.id, {
               email: user.email,
@@ -559,7 +460,7 @@ app.controller('search-controller', ['$scope', '$http', '$routeParams', function
 }]);
 app.controller('details-controller', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
   $scope.hotel;
-  $scope.timeDifference2;
+  $scope.detailsLoaded = false;
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   $scope.opinion = "Enter Opinion";
   $scope.rating = "none";
@@ -656,6 +557,7 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
 
           if (item.name === $routeParams.details) {
             $scope.hotel = item;
+            $scope.detailsLoaded = true;
           }
         }
       } catch (err) {
@@ -675,32 +577,23 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
     });
   }
 
-  $scope.cityFilter2 = "";
-  $scope.adultsNum2 = null;
-  $scope.childrenNum2 = null;
-  $scope.roomsNum2 = null;
-  $scope.firstDate2 = "Check In";
-  $scope.secondDate2 = "Check Out";
   $scope.selectArray = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
 
   if ($routeParams.city) {
-    $scope.cityFilter2 = $routeParams.city;
+    $scope.$parent.data.city = $routeParams.city;
   }
 
   if ($routeParams.type) {
     var tmpType = $routeParams.type.split('-');
-    $scope.adultsNum2 = tmpType[0];
-    $scope.childrenNum2 = tmpType[1];
-    $scope.roomsNum2 = tmpType[2];
-    console.log($scope.adultsNum);
+    $scope.$parent.adults = tmpType[0];
+    $scope.$parent.children = tmpType[1];
+    $scope.$parent.rooms = tmpType[2];
   }
 
   if ($routeParams.date) {
     var tmpDate = $routeParams.date.split('-');
-    $scope.firstDate2 = tmpDate[0];
-    $scope.secondDate2 = tmpDate[1];
-    console.log($scope.firstDate2);
-    console.log($scope.secondDate2);
+    $scope.$parent.checkIn = tmpDate[0];
+    $scope.$parent.checkOut = tmpDate[1];
     var first = 0;
     var second = 0;
     var _iteratorNormalCompletion6 = true;
@@ -713,11 +606,11 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
             key = _step6$value[0],
             item = _step6$value[1];
 
-        if (item === $scope.secondDate2.substr(0, 3)) {
+        if (item === $scope.$parent.checkOut.substr(0, 3)) {
           second = key;
         }
 
-        if (item === $scope.firstDate2.substr(0, 3)) {
+        if (item === $scope.$parent.checkIn.substr(0, 3)) {
           first = key;
         }
       }
@@ -737,9 +630,9 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
     }
 
     if (second === first) {
-      $scope.timeDifference2 = parseInt($scope.secondDate2.substr(4, 2)) - parseInt($scope.firstDate2.substr(4, 2));
+      $scope.timeDifference2 = parseInt($scope.$parent.checkOut.substr(4, 2)) - parseInt($scope.$parent.checkIn.substr(4, 2));
     } else if (second === first + 1) {
-      $scope.timeDifference2 = parseInt($scope.secondDate2.substr(4, 2)) - parseInt($scope.firstDate2.substr(4, 2));
+      $scope.timeDifference2 = parseInt($scope.$parent.checkOut.substr(4, 2)) - parseInt($scope.$parent.checkIn.substr(4, 2));
       $scope.timeDifference2 += 30;
     }
 
@@ -767,17 +660,17 @@ app.controller('details-controller', ['$scope', '$http', '$routeParams', functio
             user = _item2;
             newOrders = _item2.orders.slice();
             console.log($scope.hotel);
-            console.log($scope.timeDifference2 + "," + $scope.hotel.price + "," + $scope.currencyMultiplier + "," + $scope.roomsNum2 + "," + $scope.data.selectedCurrency);
+            console.log($scope.timeDifference2 + "," + $scope.hotel.price + "," + $scope.currencyMultiplier + "," + $scope.$parent.rooms + "," + $scope.data.selectedCurrency);
             newOrders.push({
               name: $scope.hotel.name,
               city: $scope.hotel.city,
               img: $scope.hotel.img,
               rating: $scope.hotel.rating,
-              totalPrice: Math.round($scope.timeDifference2 * $scope.hotel.price * $scope.currencyMultiplier * $scope.roomsNum2 * 100) / 100 + $scope.data.selectedCurrency,
-              rooms: $scope.roomsNum2,
-              adults: $scope.adultsNum2,
-              children: $scope.childrenNum2,
-              date: $scope.firstDate2 + "-" + $scope.secondDate2
+              totalPrice: Math.round($scope.timeDifference2 * $scope.hotel.price * $scope.currencyMultiplier * $scope.$parent.rooms * 100) / 100 + $scope.data.selectedCurrency,
+              rooms: $scope.$parent.rooms,
+              adults: $scope.$parent.adults,
+              children: $scope.$parent.children,
+              date: $scope.$parent.checkIn + "-" + $scope.$parent.checkOut
             });
             $http.put('https://rocky-citadel-32862.herokuapp.com/BookHotel/users/' + user.id, {
               email: user.email,
