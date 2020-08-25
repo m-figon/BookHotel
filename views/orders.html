@@ -14,43 +14,31 @@
     </div>
 <div class="orders" ng-show="logedAc!=='' && logedUser.orders.length>0">
     <h2 id="orders-sign">Your orders</h2>
-    <div class="title-order-items">
-        <div class="order-item" >
-            Image
-        </div>
-        <div class="bigger-order-item" >
-            Name
-        </div>
-        <div class="order-item" >
-            City
-        </div>
-        <div class="bigger-order-item" >
-            Date
-        </div>
-        <div class="smaller-order-item" >
-            Rating
-        </div>
-        <div class="order-item" >
-            Total Price
-        </div>
-        <div class="smaller-order-item" >
-            Rooms
-        </div>
-        <div class="smaller-order-item" >
-            Adults
-        </div>
-        <div class="smaller-order-item" >
-            Children
-        </div>
-        <div class="smaller-order-item" >
-        </div>
-    </div>
+    
     <div class="orders-display">
-        <div class="order-items" ng-repeat="order in logedUser.orders">
+        <div  class="all-orders" ng-repeat="order in logedUser.orders">
+            <div class="title-order-items">
+                <div class="order-item" >
+                    <h1>Image</h1>
+                </div>
+                <div class="order-item" >
+                    <h1>Name</h1>
+                </div>
+                <div class="order-item" >
+                    <h1> City</h1>
+                </div>
+                <div class="bigger-order-item" >
+                    <h1>Date</h1>
+                </div>
+                <div class="smaller-order-item" >
+                    <h1> Rating</h1>
+                </div>   
+            </div>
+            <div class="order-items">
             <div class="order-item" >
                 <img src="{{order.img}}">
             </div>
-            <div class="bigger-order-item" >
+            <div class="order-item" >
                 <h1>{{order.name}}</h1>
             </div>
             <div class="order-item" >
@@ -62,20 +50,41 @@
             <div class="smaller-order-item" >
                 <h1>{{order.rating}}</h1>
             </div>
+        </div>
+            <div class="title-order-items">
+
+                <div class="order-item" >
+                    <h1>Total Price</h1>
+                </div>
+                <div class="order-item" >
+                    <h1>Rooms</h1>
+                </div>
+                <div class="order-item" >
+                    <h1>Adults</h1>
+                </div>
+                <div class="order-item" >
+                    <h1>Children</h1>
+                </div>
+                <div class="order-item" >
+                </div>
+            </div>
+            <div class="order-items">
+
             <div class="order-item" >
                 <h1>{{order.totalPrice}}</h1>
             </div>
-            <div class="smaller-order-item" >
+            <div class="order-item" >
                 <h1>{{order.rooms}}</h1>
             </div>
-            <div class="smaller-order-item" >
+            <div class="order-item" >
                 <h1>{{order.adults}}</h1>
             </div>
-            <div class="smaller-order-item" >
+            <div class="order-item" >
                 <h1>{{order.children}}</h1>
             </div>
-            <div class="smaller-order-item" >
+            <div class="order-item" >
                 <button ng-click="deleteConfirmShow(true,order.id)"></button>
+            </div>
             </div>
         </div>
         
