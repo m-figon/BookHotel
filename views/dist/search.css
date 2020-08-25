@@ -192,20 +192,13 @@
     height: auto;
   }
   .search .search-filters {
-    width: 24rem;
-    margin-right: 0;
-    margin-bottom: 2rem;
+    display: none;
   }
   .search .filters {
     height: 3rem;
   }
-  .search .search-line select {
-    width: 25rem;
-  }
-  .search .search-filters input, .search .search-filters select {
-    height: 2rem;
-    width: auto;
-    padding: 0 0.3rem;
+  .search .filters button {
+    height: 3rem;
   }
 }
 @media only screen and (max-width: 700px) {

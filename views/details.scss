@@ -1,6 +1,10 @@
 @import '../global';
 
 .details-content {
+        width: auto;
+        height: 90%;
+        display: flex;
+        flex-direction: column;
     h2 {
         font-size: 1.5rem;
         color: $main-color;
@@ -11,8 +15,7 @@
         margin: 0;
     }
     img {
-        width: 50rem;
-        height: 35rem;
+        width: 30rem;
         margin: 0;
     }
     p {
@@ -51,16 +54,49 @@
         width: 30%;
         display: flex;
         justify-content: center;
+        align-items: center;
         button {
-            width: 5rem;
+            display: flex;
+            width: 1.5rem;
             background-color: $main-color;
-            height: 2.5rem;
-            font-size: 1rem;
+            height: 1.5rem;
             color: white;
-            border: 1px solid $border-color;
-            border-radius: 2px;
+            border: 0;
             font-weight: 700;
             border-radius: 5px;
+            -webkit-clip-path: polygon(
+                0 29%,
+                34% 29%,
+                34% 0,
+                68% 0,
+                68% 28%,
+                100% 28%,
+                100% 71%,
+                68% 70%,
+                68% 100%,
+                33% 100%,
+                33% 70%,
+                1% 70%
+              );
+              clip-path: polygon(
+                0 29%,
+                34% 29%,
+                34% 0,
+                68% 0,
+                68% 28%,
+                100% 28%,
+                100% 71%,
+                68% 70%,
+                68% 100%,
+                33% 100%,
+                33% 70%,
+                1% 70%
+              );
+            margin-left: 0.5rem;
+            transform: rotate(90deg);
+            &:hover{
+                cursor: pointer;
+            }
         }
         select {
             width: 5.5rem;
@@ -128,6 +164,98 @@
         h1 {
             color: $main-color;
             font-weight: 700;
+        }
+    }
+}
+@media only screen and (max-width: 1500px) {
+    .details-content{
+        p{
+            width:30rem;
+        }
+    }
+    .price-line{
+        width:30rem;
+    }
+    .opinion{
+        width:30rem;
+        h1{
+            font-size: 0.8rem;
+        }
+        .middle input{
+            width:13rem;
+        }
+        .right select{
+            padding: 0;
+            width:4rem;
+        }
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .details{
+        .search-filters{
+            display: none;
+        }
+    }
+}
+@media only screen and (max-width: 650px) {
+    .details-content{
+        p{
+            width:20rem;
+            font-size: 0.7rem;
+        }
+        img{
+            width:20rem;
+        }
+        h2{
+            font-size: 1.2rem;
+        }
+        h1{
+            font-size: 0.8rem;
+        }
+    }
+    .price-line{
+        width:20rem;
+    }
+    .opinion{
+        width:20rem;
+        flex-direction: column;
+        .left,.middle,.right{
+            width:100%;
+            justify-content: center;
+            align-items: center;
+            padding: 0.2rem 0;
+        }
+        .left h1{
+            font-size: 0.8rem;
+        }
+        h1{
+            font-size: 0.7rem;
+        }
+        .middle input{
+            width:13rem;
+        }
+        .right select{
+            padding: 0;
+            width:4rem;
+        }
+    }
+}
+@media only screen and (max-width: 650px) {
+    .details-content{
+        p{
+            width:15rem;
+        }
+        img{
+            width:15rem;
+        }
+    }
+    .price-line{
+        width:15rem;
+    }
+    .opinion{
+        width:15rem;
+        .middle input{
+            width:11rem;
         }
     }
 }

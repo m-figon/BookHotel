@@ -63,6 +63,12 @@
   background-color: black;
 }
 
+.details-content {
+  width: auto;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
 .details-content h2 {
   font-size: 1.5rem;
   color: #003580;
@@ -73,8 +79,7 @@
   margin: 0;
 }
 .details-content img {
-  width: 50rem;
-  height: 35rem;
+  width: 30rem;
   margin: 0;
 }
 .details-content p {
@@ -115,17 +120,24 @@
   width: 30%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .opinion .right button {
-  width: 5rem;
+  display: flex;
+  width: 1.5rem;
   background-color: #003580;
-  height: 2.5rem;
-  font-size: 1rem;
+  height: 1.5rem;
   color: white;
-  border: 1px solid #cecece;
-  border-radius: 2px;
+  border: 0;
   font-weight: 700;
   border-radius: 5px;
+  -webkit-clip-path: polygon(0 29%, 34% 29%, 34% 0, 68% 0, 68% 28%, 100% 28%, 100% 71%, 68% 70%, 68% 100%, 33% 100%, 33% 70%, 1% 70%);
+  clip-path: polygon(0 29%, 34% 29%, 34% 0, 68% 0, 68% 28%, 100% 28%, 100% 71%, 68% 70%, 68% 100%, 33% 100%, 33% 70%, 1% 70%);
+  margin-left: 0.5rem;
+  transform: rotate(90deg);
+}
+.opinion .right button:hover {
+  cursor: pointer;
 }
 .opinion .right select {
   width: 5.5rem;
@@ -202,6 +214,96 @@
   font-weight: 700;
 }
 
+@media only screen and (max-width: 1500px) {
+  .details-content p {
+    width: 30rem;
+  }
+
+  .price-line {
+    width: 30rem;
+  }
+
+  .opinion {
+    width: 30rem;
+  }
+  .opinion h1 {
+    font-size: 0.8rem;
+  }
+  .opinion .middle input {
+    width: 13rem;
+  }
+  .opinion .right select {
+    padding: 0;
+    width: 4rem;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .details .search-filters {
+    display: none;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .details-content p {
+    width: 20rem;
+    font-size: 0.7rem;
+  }
+  .details-content img {
+    width: 20rem;
+  }
+  .details-content h2 {
+    font-size: 1.2rem;
+  }
+  .details-content h1 {
+    font-size: 0.8rem;
+  }
+
+  .price-line {
+    width: 20rem;
+  }
+
+  .opinion {
+    width: 20rem;
+    flex-direction: column;
+  }
+  .opinion .left, .opinion .middle, .opinion .right {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2rem 0;
+  }
+  .opinion .left h1 {
+    font-size: 0.8rem;
+  }
+  .opinion h1 {
+    font-size: 0.7rem;
+  }
+  .opinion .middle input {
+    width: 13rem;
+  }
+  .opinion .right select {
+    padding: 0;
+    width: 4rem;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .details-content p {
+    width: 15rem;
+  }
+  .details-content img {
+    width: 15rem;
+  }
+
+  .price-line {
+    width: 15rem;
+  }
+
+  .opinion {
+    width: 15rem;
+  }
+  .opinion .middle input {
+    width: 11rem;
+  }
+}
 .imgs {
   width: 60rem;
   height: 30rem;
@@ -293,6 +395,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  justify-content: flex-start;
   background-color: white;
   padding: 0 1rem;
   border: 3px solid #ffae00;
@@ -511,10 +614,6 @@
     margin-bottom: 0.5rem;
   }
 
-  .search-bar h1 {
-    justify-content: flex-start;
-  }
-
   .search-bar button {
     width: 19rem;
   }
@@ -627,6 +726,28 @@
   margin-right: 0.5rem;
 }
 
+@media only screen and (max-width: 600px) {
+  .login-content {
+    width: 15rem;
+    padding: 2rem 2rem;
+  }
+  .login-content h2 {
+    font-size: 1.3rem;
+  }
+  .login-content input {
+    width: 12rem;
+  }
+  .login-content button {
+    width: 14.3rem;
+    margin-bottom: 1rem;
+  }
+  .login-content .line {
+    margin-top: 0;
+  }
+  .login-content .line p {
+    font-size: 0.8rem;
+  }
+}
 .nav-bar {
   width: 100vw;
   height: 3rem;
@@ -726,7 +847,7 @@
     width: 80%;
   }
 }
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 1000px) {
   .nav-bar-content {
     width: 60%;
   }
@@ -1130,20 +1251,13 @@
     height: auto;
   }
   .search .search-filters {
-    width: 24rem;
-    margin-right: 0;
-    margin-bottom: 2rem;
+    display: none;
   }
   .search .filters {
     height: 3rem;
   }
-  .search .search-line select {
-    width: 25rem;
-  }
-  .search .search-filters input, .search .search-filters select {
-    height: 2rem;
-    width: auto;
-    padding: 0 0.3rem;
+  .search .filters button {
+    height: 3rem;
   }
 }
 @media only screen and (max-width: 700px) {
@@ -1280,13 +1394,6 @@ a {
   padding-top: 3rem;
   align-items: flex-start;
   height: auto;
-}
-
-.details-content {
-  width: 50%;
-  height: 90%;
-  display: flex;
-  flex-direction: column;
 }
 
 #orange {

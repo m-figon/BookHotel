@@ -176,20 +176,13 @@
         justify-content: flex-start;
         height: auto;
         .search-filters {
-            width: 24rem;
-            margin-right: 0;
-            margin-bottom: 2rem;
+            display: none;
         }
         .filters{
             height:3rem;
-        }
-        .search-line select {
-            width: 25rem;
-        }
-        .search-filters input, .search-filters select {
-            height: 2rem;
-            width: auto;
-            padding: 0 0.3rem;
+            button{
+                height: 3rem;
+            }
         }
     }
 }

@@ -58,3 +58,25 @@
         margin-right: 0.5rem;
       }
   }
+  @media only screen and (max-width: 600px) {
+    .login-content{
+      width:15rem;
+      padding: 2rem 2rem;
+      h2{
+        font-size: 1.3rem;
+      }
+      input{
+        width:12rem;
+      }
+      button{
+        width:14.3rem;
+        margin-bottom: 1rem;
+      }
+      .line{
+        margin-top: 0;
+        p{
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
