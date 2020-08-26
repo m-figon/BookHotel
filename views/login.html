@@ -8,7 +8,7 @@
         <h2>Enter email address</h2>
         <p id="bottom">Sign in to access all the booking functionality</p>
         <p>Email Address</p>
-        <input ng-model="email">
+        <input autocomplete="new-password" ng-model="email">
         <p id="warning" ng-show="loginP">
             Please enter correct email address
         </p>
@@ -28,7 +28,7 @@
             <p>Enter password for address</p>
             <p id="bold">{{email}}</p>
         <p>Password</p>
-        <input type="password" ng-model="password">
+        <input autocomplete="new-password" type="password" ng-model="password">
         <p id="warning" ng-show="loginP">
             Entered email and password aren't correct
         </p>

@@ -2,7 +2,7 @@
   width: 60rem;
   height: 30rem;
   display: flex;
-  overflow-x: hidden;
+  overflow: hidden;
   margin-top: 2rem;
   border: 2px solid #ffae00;
 }

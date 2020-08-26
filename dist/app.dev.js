@@ -205,6 +205,7 @@ app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
 
   $scope.hideCalendar = function () {
     $scope.calendarVisible = false;
+    $scope.roomSettingsVisible = false;
   };
 
   $scope.showRoomsSettings = function () {
@@ -215,6 +216,7 @@ app.controller('app-controller', ['$scope', '$http', function ($scope, $http) {
   $scope.displayMessage = function (value) {
     $scope.searchP = value;
     $scope.hideCalendar();
+    $scope.roomSettingsVisible = false;
   };
 
   $scope.searchFilter = function () {

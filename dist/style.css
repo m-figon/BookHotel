@@ -63,6 +63,12 @@
   background-color: black;
 }
 
+.details-content {
+  width: auto;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
 .details-content h2 {
   font-size: 1.5rem;
   color: #003580;
@@ -236,11 +242,73 @@
     display: none;
   }
 }
+@media only screen and (max-width: 650px) {
+  .details-content p {
+    width: 20rem;
+    font-size: 0.7rem;
+  }
+  .details-content img {
+    width: 20rem;
+  }
+  .details-content h2 {
+    font-size: 1.2rem;
+  }
+  .details-content h1 {
+    font-size: 0.8rem;
+  }
+
+  .price-line {
+    width: 20rem;
+  }
+
+  .opinion {
+    width: 20rem;
+    flex-direction: column;
+  }
+  .opinion .left, .opinion .middle, .opinion .right {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2rem 0;
+  }
+  .opinion .left h1 {
+    font-size: 0.8rem;
+  }
+  .opinion h1 {
+    font-size: 0.7rem;
+  }
+  .opinion .middle input {
+    width: 13rem;
+  }
+  .opinion .right select {
+    padding: 0;
+    width: 4rem;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .details-content p {
+    width: 15rem;
+  }
+  .details-content img {
+    width: 15rem;
+  }
+
+  .price-line {
+    width: 15rem;
+  }
+
+  .opinion {
+    width: 15rem;
+  }
+  .opinion .middle input {
+    width: 11rem;
+  }
+}
 .imgs {
   width: 60rem;
   height: 30rem;
   display: flex;
-  overflow-x: hidden;
+  overflow: hidden;
   margin-top: 2rem;
   border: 2px solid #ffae00;
 }
@@ -858,11 +926,11 @@
 }
 
 #orders-sign {
-  width: 80rem;
+  width: 40rem;
 }
 
 .order-items {
-  width: 80rem;
+  width: auto;
   height: 3rem;
   display: flex;
   align-items: center;
@@ -871,13 +939,17 @@
 }
 
 .title-order-items {
-  width: 80rem;
+  width: auto;
   height: 2rem;
   display: flex;
   align-items: center;
   background-color: #003580;
   color: white;
   font-weight: 700;
+}
+
+.all-orders {
+  margin-bottom: 2rem;
 }
 
 .order-item,
@@ -894,24 +966,25 @@
   flex-direction: row;
 }
 
-.smaller-order-item {
-  width: 7rem;
-  height: 100%;
-}
-.smaller-order-item button {
+.order-item button {
   clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
   border: 0;
   width: 1.5rem;
   height: 1.5rem;
   background-color: #ffae00;
 }
-.smaller-order-item button:hover {
+.order-item button:hover {
   cursor: pointer;
   background-color: #ffd000;
 }
 
 .bigger-order-item {
-  width: 25rem;
+  width: 16rem;
+  height: 100%;
+}
+
+.smaller-order-item {
+  width: 4rem;
   height: 100%;
 }
 
@@ -928,6 +1001,71 @@
   font-size: 1rem;
 }
 
+@media only screen and (max-width: 1150px) {
+  .order-item {
+    width: 7rem;
+  }
+
+  #orders-sign {
+    width: 35rem;
+  }
+
+  .bigger-order-item {
+    width: 9rem;
+  }
+
+  .smaller-order-item {
+    width: 5rem;
+  }
+
+  .order-item h1, .smaller-order-item h1, .bigger-order-item h1 {
+    font-size: 0.8rem;
+  }
+}
+@media only screen and (max-width: 750px) {
+  .order-item {
+    width: 5rem;
+  }
+
+  #orders-sign {
+    width: 25rem;
+  }
+
+  .bigger-order-item {
+    width: 6rem;
+  }
+
+  .smaller-order-item {
+    width: 4rem;
+  }
+
+  .order-item h1, .smaller-order-item h1, .bigger-order-item h1 {
+    font-size: 0.7rem;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .order-item {
+    width: 4rem;
+  }
+
+  #orders-sign {
+    width: 20rem;
+    font-size: 1.2rem;
+  }
+
+  .bigger-order-item {
+    width: 5rem;
+  }
+
+  .smaller-order-item {
+    width: 3rem;
+  }
+
+  .order-item img, .smaller-order-item img, .bigger-order-item img {
+    width: 3rem;
+    height: 2rem;
+  }
+}
 .room-settings {
   margin-top: 1rem;
   width: 20rem;
@@ -1183,20 +1321,13 @@
     height: auto;
   }
   .search .search-filters {
-    width: 24rem;
-    margin-right: 0;
-    margin-bottom: 2rem;
+    display: none;
   }
   .search .filters {
     height: 3rem;
   }
-  .search .search-line select {
-    width: 25rem;
-  }
-  .search .search-filters input, .search .search-filters select {
-    height: 2rem;
-    width: auto;
-    padding: 0 0.3rem;
+  .search .filters button {
+    height: 3rem;
   }
 }
 @media only screen and (max-width: 700px) {
@@ -1373,7 +1504,7 @@ a {
 }
 
 .confirm {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
