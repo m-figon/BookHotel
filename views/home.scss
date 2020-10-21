@@ -12,7 +12,15 @@
     width:60rem;
     height:30rem;
     display: flex;
-    animation: slider 10s infinite;
+    animation: slider 10s infinite, fadeIn 1s;
+        @-webkit-keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+        }
+        @keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+        } 
 }
 @keyframes slider {
     0% { margin-left:0;}

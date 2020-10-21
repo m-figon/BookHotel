@@ -65,6 +65,7 @@
         width: 1.5rem;
         height: 1.5rem;
         background-color: $second-color;
+        transition: background-color 500ms;
         &:hover {
             cursor: pointer;
             background-color: $second-color-hover;

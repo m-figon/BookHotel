@@ -41,6 +41,7 @@
         color: white;
         border: 1px solid $main-color;
         background-color: $main-color;
+        transition: background-color 500ms;
         &:hover {
             cursor: pointer;
             background-color: $main-color-hover;

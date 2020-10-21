@@ -17,6 +17,20 @@
     img {
         width: 30rem;
         margin: 0;
+        -webkit-animation-name: fadeIn;
+                animation-name: fadeIn;
+                -webkit-animation-duration: 1s;
+                animation-duration: 1s;
+                -webkit-animation-fill-mode: both;
+                animation-fill-mode: both;
+                @-webkit-keyframes fadeIn {
+                0% {opacity: 0;}
+                100% {opacity: 1;}
+                }
+                @keyframes fadeIn {
+                0% {opacity: 0;}
+                100% {opacity: 1;}
+                } 
     }
     p {
         width: 50rem;
@@ -154,6 +168,7 @@
             color: white;
             border: 1px solid $border-color;
             background-color: $second-color;
+            transition: background-color 500ms;
             &:hover {
                 background-color: $second-color-hover;
             }

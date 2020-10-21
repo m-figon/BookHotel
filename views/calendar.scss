@@ -32,6 +32,7 @@
         background-color: white;
         margin: 0.2rem;
         @include flex();
+        transition: background-color 500ms;
         &:hover {
             cursor: pointer;
             background-color: $border-color;

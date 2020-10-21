@@ -10,6 +10,7 @@
     padding-bottom: 2rem;
     border-radius: 10px;
     background-color: white;
+    
     input {
         width: 17.5rem;
         padding: 0 1rem;
@@ -17,6 +18,7 @@
         height: 2rem;
         border: 1px solid $border-color;
         border-radius: 2px;
+        transition: box-shadow 500ms;
         &:focus {
             -webkit-box-shadow: 0px 0px 10px 0px $main-color;
             -moz-box-shadow: 0px 0px 10px 0px $main-color;
@@ -32,6 +34,7 @@
         border: 1px solid $border-color;
         border-radius: 2px;
         font-weight: 700;
+        transition: background-color 500ms;
         &:hover {
             background-color: $main-color;
             cursor: pointer;
